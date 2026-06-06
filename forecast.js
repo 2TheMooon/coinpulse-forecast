@@ -21,6 +21,18 @@
 (function (global) {
   "use strict";
 
+  // >>> AUTO-TUNED MODEL CONFIG — managed by backtest/auto-tune.js >>>
+  // The daily calibration loop edits these numbers to keep the cone honest.
+  // volPremium multiplies the estimated daily sigma everywhere (live cone,
+  // analytic cross-check AND the calibration), so tuning it actually moves
+  // coverage toward the 80%/50% targets over time.
+  var MODEL = {
+    volPremium: 1.05, // global multiplier on estimated daily sigma
+    driftDamp: 0.4, // fraction of raw drift carried forward
+    tDof: 5, // Student-t degrees of freedom (fat tails)
+  };
+  // <<< AUTO-TUNED MODEL CONFIG <<<
+
   // ---- small math helpers -------------------------------------------------
 
   function clamp(value, min, max) {
@@ -306,14 +318,14 @@
     const opts = options || {};
     const horizon = Math.max(1, Math.round(opts.horizon || 30));
     const paths = Math.max(50, Math.round(opts.paths || 600));
-    const driftDamp = opts.driftDamp == null ? 0.55 : opts.driftDamp;
+    const driftDamp = opts.driftDamp == null ? MODEL.driftDamp : opts.driftDamp;
     const volScale = opts.volScale == null ? 1 : opts.volScale;
     const fatTails = opts.fatTails !== false; // on by default
-    const tDof = opts.tDof || 5; // degrees of freedom for Student-t tails
+    const tDof = opts.tDof || MODEL.tDof; // degrees of freedom for Student-t tails
     const seed = opts.seed == null ? 1337 : opts.seed;
 
     const s0 = stats.lastPrice;
-    const sigma = Math.max(1e-6, (stats.simSigma || stats.sigmaDaily) * volScale);
+    const sigma = Math.max(1e-6, (stats.simSigma || stats.sigmaDaily) * volScale * MODEL.volPremium);
 
     // Damp the raw drift toward zero (recent trend rarely persists fully) and
     // clamp it so the cone never runs away.
@@ -577,9 +589,9 @@
   function analyticTerminal(stats, options) {
     const opts = options || {};
     const horizon = Math.max(1, Math.round(opts.horizon || 30));
-    const driftDamp = opts.driftDamp == null ? 0.55 : opts.driftDamp;
+    const driftDamp = opts.driftDamp == null ? MODEL.driftDamp : opts.driftDamp;
     const volScale = opts.volScale == null ? 1 : opts.volScale;
-    const sigma = Math.max(1e-6, (stats.simSigma || stats.sigmaDaily) * volScale);
+    const sigma = Math.max(1e-6, (stats.simSigma || stats.sigmaDaily) * volScale * MODEL.volPremium);
     let mu = stats.muDaily * driftDamp;
     mu = clamp(mu, -3 * sigma, 3 * sigma);
     mu = clamp(mu, -0.02, 0.02);
@@ -617,7 +629,7 @@
   function backtestCalibration(candles, options) {
     const opts = options || {};
     const horizon = Math.max(1, Math.round(opts.horizon || 30));
-    const driftDamp = opts.driftDamp == null ? 0.55 : opts.driftDamp;
+    const driftDamp = opts.driftDamp == null ? MODEL.driftDamp : opts.driftDamp;
     const volScale = opts.volScale == null ? 1 : opts.volScale;
     const closes = candles.map((c) => c.close).filter((v) => Number.isFinite(v) && v > 0);
 
@@ -639,7 +651,7 @@
     for (let i = minTrain; i <= lastAnchor; i += step) {
       const slice = closes.slice(0, i + 1);
       const est = quickMuSigma(slice);
-      const sig = Math.max(1e-6, est.sigma * volScale);
+      const sig = Math.max(1e-6, est.sigma * volScale * MODEL.volPremium);
       let mu = clamp(est.muDaily * driftDamp, -3 * sig, 3 * sig);
       mu = clamp(mu, -0.02, 0.02);
       const drift = (mu - 0.5 * sig * sig) * horizon;
@@ -725,6 +737,7 @@
   }
 
   global.Forecast = {
+    MODEL,
     analyze,
     computeStats,
     simulate,

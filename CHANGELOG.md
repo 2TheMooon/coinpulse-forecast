@@ -15,3 +15,5 @@ tune and improve the forecasting model.
 - Node-requireable engine + headless backtest harness (`backtest/run-backtest.js`).
 
 <!-- Daily calibration runs append below this line -->
+
+- 2026-06-06 auto-tune: volPremium 1→1.05, driftDamp 0.55→0.4 (calibration error 26.44→25.18, cov80→78.3%)
