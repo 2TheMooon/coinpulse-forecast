@@ -301,6 +301,23 @@ function ensemble(closes, H, N, gauss, rng, opts) {
     const s = parts[k](closes, H, per, gauss, rng, opts);
     for (let i = 0; i < s.length; i += 1) out.push(s[i]);
   }
+  // Volatility term-structure (mirrors the shipped engine's volPremium): widen
+  // the pooled distribution on longer horizons, where single models run too
+  // narrow. Scales DISPERSION around the pooled mean, preserving drift.
+  const baseVp = opts.volPremium == null ? 1 : opts.volPremium;
+  const termPerDay = opts.termPerDay == null ? 0.012 : opts.termPerDay;
+  const vp = baseVp * (H > 14 ? 1 + (H - 14) * termPerDay : 1);
+  if (vp !== 1) {
+    const s0 = closes[closes.length - 1];
+    const logs = new Array(out.length);
+    let m = 0;
+    for (let i = 0; i < out.length; i += 1) {
+      logs[i] = Math.log(out[i] / s0);
+      m += logs[i];
+    }
+    m /= out.length;
+    for (let i = 0; i < out.length; i += 1) out[i] = s0 * Math.exp(m + (logs[i] - m) * vp);
+  }
   return Float64Array.from(out);
 }
 

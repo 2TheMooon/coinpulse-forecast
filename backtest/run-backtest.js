@@ -400,6 +400,17 @@ async function main() {
     winnerPerCoin: perCoinBest,
   };
 
+  // Horizon-dependent routing: which model to trust per horizon bucket. The live
+  // app / engine can read this to pick short→best@7d, mid→best@14d, long→best@30d.
+  const routing = {
+    generatedAt: report.generatedAt,
+    short: { maxDays: 7, strategy: report.best.byHorizon[7] || report.best.overall },
+    mid: { maxDays: 21, strategy: report.best.byHorizon[14] || report.best.overall },
+    long: { maxDays: 9999, strategy: report.best.byHorizon[30] || report.best.overall },
+  };
+  report.routing = routing;
+  fs.writeFileSync(path.join(REPORTS_DIR, "model-routing.json"), JSON.stringify(routing, null, 2));
+
   const jsonPath = path.join(REPORTS_DIR, dateStr + ".json");
   fs.writeFileSync(jsonPath, JSON.stringify(report, null, 2));
   fs.writeFileSync(path.join(REPORTS_DIR, "latest.json"), JSON.stringify(report, null, 2));
@@ -415,6 +426,7 @@ async function main() {
   }
   console.log("  OVERALL best: " + winner.label + " (score " + round(winner.meanScore, 1) + ")");
   console.log("  RECOMMENDATION: " + recommendation.action.toUpperCase() + " → " + recommendation.strategy + " — " + recommendation.reason);
+  console.log("  ROUTING: short(≤7d)→" + routing.short.strategy + " · mid(≤21d)→" + routing.mid.strategy + " · long→" + routing.long.strategy);
   console.log("\nReport: " + jsonPath);
   console.log("Done in " + (report.durationMs / 1000).toFixed(1) + "s");
 }
