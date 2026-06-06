@@ -192,6 +192,21 @@
 
   // ---- statistics bundle --------------------------------------------------
 
+  // EWMA (RiskMetrics) volatility — exponential memory captures clustering far
+  // better than a boxcar window. Shared by the live cone AND the calibration so
+  // both score the same model. lambda 0.94 is the RiskMetrics daily default.
+  function ewmaVol(rets, lambda) {
+    if (!rets.length) return 0;
+    const lam = lambda == null ? 0.94 : lambda;
+    const m = mean(rets);
+    let v = (rets[0] - m) * (rets[0] - m);
+    for (let i = 1; i < rets.length; i += 1) {
+      const e = rets[i] - m;
+      v = lam * v + (1 - lam) * e * e;
+    }
+    return Math.sqrt(v);
+  }
+
   function computeStats(candles) {
     const closes = candles.map((c) => c.close).filter(Number.isFinite);
     const lastPrice = closes[closes.length - 1];
@@ -216,10 +231,9 @@
     const baseVol = stdev(rets.slice(-60)) || sigmaDaily;
     const volRatio = baseVol ? recentVol / baseVol : 1;
 
-    // Blend recent and baseline vol so the cone reacts to volatility clustering
-    // without over-fitting a noisy 14-day window. This is what the simulator
-    // actually uses for sigma.
-    const simSigma = recentVol > 0 && baseVol > 0 ? 0.6 * recentVol + 0.4 * baseVol : sigmaDaily;
+    // EWMA volatility is what the simulator actually uses for sigma — it reacts
+    // to clustering with exponential memory instead of a boxcar blend.
+    const simSigma = ewmaVol(rets, 0.94) || sigmaDaily;
 
     // Momentum windows — NaN (not a misleading 0) when history is too short.
     const pct = (from, to) => (from ? ((to - from) / from) * 100 : 0);
@@ -308,21 +322,77 @@
     mu = clamp(mu, -0.02, 0.02);
 
     const rng = mulberry32(seed);
-
-    // Student-t scaling so variance stays ~sigma^2 when fat tails are on
     const tScale = tDof > 2 ? Math.sqrt((tDof - 2) / tDof) : 1;
-    function shock() {
-      const z = gaussian(rng);
-      if (!fatTails) return z;
-      // t = z / sqrt(chi2_dof / dof); approximate chi2 via sum of squared normals
-      let chi = 0;
-      for (let k = 0; k < tDof; k += 1) {
-        const g = gaussian(rng);
-        chi += g * g;
+    const SHOCK_CAP = 6; // bound shocks: a true fat-t has no MGF (infinite E[S])
+
+    // Standard normal via polar Box-Muller, caching the spare deviate (halves RNG cost).
+    let spareNormal = null;
+    function nextNormal() {
+      if (spareNormal !== null) {
+        const s = spareNormal;
+        spareNormal = null;
+        return s;
       }
-      const t = z / Math.sqrt(chi / tDof);
-      return t * tScale;
+      let u, v, w;
+      do {
+        u = 2 * rng() - 1;
+        v = 2 * rng() - 1;
+        w = u * u + v * v;
+      } while (w >= 1 || w === 0);
+      const mul = Math.sqrt((-2 * Math.log(w)) / w);
+      spareNormal = v * mul;
+      return u * mul;
     }
+
+    // Student-t via Bailey's polar method, scaled to unit variance and capped.
+    function nextStudentT() {
+      let u, v, w;
+      do {
+        u = 2 * rng() - 1;
+        v = 2 * rng() - 1;
+        w = u * u + v * v;
+      } while (w > 1 || w === 0);
+      const c = u / Math.sqrt(w);
+      const r = tDof * (Math.pow(w, -2 / tDof) - 1);
+      return clamp(c * Math.sqrt(r) * tScale, -SHOCK_CAP, SHOCK_CAP);
+    }
+
+    function shock() {
+      return fatTails ? nextStudentT() : clamp(nextNormal(), -SHOCK_CAP, SHOCK_CAP);
+    }
+
+    // Exact Ito/martingale correction kappa = log E[exp(sigma * shock)]. For a
+    // Gaussian this is 0.5*sigma^2; for the capped Student-t it is larger, so we
+    // estimate it empirically on a SEPARATE seeded stream (does not perturb the
+    // paths). Using mu - kappa keeps the mean path centered on exp(mu*H) and
+    // removes the fat-tail upward bias.
+    function estimateKappa() {
+      const krng = mulberry32((seed ^ 0x9e3779b9) >>> 0);
+      let spK = null;
+      function kn() {
+        if (spK !== null) { const s = spK; spK = null; return s; }
+        let u, v, w;
+        do { u = 2 * krng() - 1; v = 2 * krng() - 1; w = u * u + v * v; } while (w >= 1 || w === 0);
+        const mul = Math.sqrt((-2 * Math.log(w)) / w);
+        spK = v * mul;
+        return u * mul;
+      }
+      function kt() {
+        let u, v, w;
+        do { u = 2 * krng() - 1; v = 2 * krng() - 1; w = u * u + v * v; } while (w > 1 || w === 0);
+        const c = u / Math.sqrt(w);
+        const r = tDof * (Math.pow(w, -2 / tDof) - 1);
+        return clamp(c * Math.sqrt(r) * tScale, -SHOCK_CAP, SHOCK_CAP);
+      }
+      let acc = 0;
+      const N = 5000;
+      for (let i = 0; i < N; i += 1) {
+        const x = fatTails ? kt() : clamp(kn(), -SHOCK_CAP, SHOCK_CAP);
+        acc += Math.exp(sigma * x);
+      }
+      return Math.log(acc / N);
+    }
+    const kappa = estimateKappa();
 
     // valuesPerDay[d] holds every path's price at day d (d=0 is today)
     const valuesPerDay = [];
@@ -332,7 +402,7 @@
     const terminalMax = new Float64Array(paths); // highest price reached on path
     const terminalMin = new Float64Array(paths); // lowest price reached on path
 
-    const drift = mu - 0.5 * sigma * sigma;
+    const drift = mu - kappa;
 
     // Antithetic variates: simulate paths in pairs (+shock / -shock)
     for (let p = 0; p < paths; p += 2) {
@@ -417,16 +487,50 @@
       samplePaths.push(path);
     }
 
-    // Touch probability for an arbitrary level within the horizon
+    // Touch probability within the horizon, Brownian-bridge corrected so that
+    // intra-step crossings (invisible to daily-close sampling) are counted —
+    // daily endpoints alone systematically under-count barrier hits.
+    const stepVar = sigma * sigma;
+    const logS0 = Math.log(s0);
     function touchProbAbove(level) {
-      let hit = 0;
-      for (let p = 0; p < paths; p += 1) if (terminalMax[p] >= level) hit += 1;
-      return (hit / paths) * 100;
+      if (!(level > 0)) return 100;
+      const b = Math.log(level);
+      let acc = 0;
+      for (let p = 0; p < paths; p += 1) {
+        let pNo = 1;
+        let prev = logS0;
+        for (let d = 1; d <= horizon; d += 1) {
+          const cur = Math.log(valuesPerDay[d][p]);
+          if (prev >= b || cur >= b) {
+            pNo = 0;
+            break;
+          }
+          pNo *= 1 - Math.exp((-2 * (b - prev) * (b - cur)) / stepVar);
+          prev = cur;
+        }
+        acc += 1 - pNo;
+      }
+      return (acc / paths) * 100;
     }
     function touchProbBelow(level) {
-      let hit = 0;
-      for (let p = 0; p < paths; p += 1) if (terminalMin[p] <= level) hit += 1;
-      return (hit / paths) * 100;
+      if (!(level > 0)) return 0;
+      const b = Math.log(level);
+      let acc = 0;
+      for (let p = 0; p < paths; p += 1) {
+        let pNo = 1;
+        let prev = logS0;
+        for (let d = 1; d <= horizon; d += 1) {
+          const cur = Math.log(valuesPerDay[d][p]);
+          if (prev <= b || cur <= b) {
+            pNo = 0;
+            break;
+          }
+          pNo *= 1 - Math.exp((-2 * (prev - b) * (cur - b)) / stepVar);
+          prev = cur;
+        }
+        acc += 1 - pNo;
+      }
+      return (acc / paths) * 100;
     }
     function terminalProbAbove(level) {
       let hit = 0;
@@ -438,6 +542,8 @@
       horizon,
       paths,
       mu,
+      drift,
+      kappa,
       sigma,
       s0,
       bands,
@@ -503,9 +609,8 @@
     const rets = logReturns(closes);
     const muDaily = mean(rets);
     const sigmaFull = stdev(rets) || 0.02;
-    const recentVol = stdev(rets.slice(-14));
-    const baseVol = stdev(rets.slice(-60)) || sigmaFull;
-    const sigma = recentVol > 0 && baseVol > 0 ? 0.6 * recentVol + 0.4 * baseVol : sigmaFull;
+    // Same EWMA estimator the live cone uses, so calibration scores the same model.
+    const sigma = ewmaVol(rets, 0.94) || sigmaFull;
     return { muDaily: muDaily, sigma: sigma };
   }
 
@@ -563,9 +668,16 @@
     const meanPit = mean(pits);
     const dirAccuracy = (dirHits / total) * 100;
 
+    // Walk-forward windows overlap (consecutive horizons share most of their
+    // realized path), so they are NOT independent. Use an effective sample size
+    // n_eff ~ total / horizon and a standard error to avoid over-claiming.
+    const nEff = Math.max(1, total / horizon);
+    const se80 = Math.sqrt((0.8 * 0.2) / nEff) * 100;
+    const tol = 2 * se80 + 4; // 2 SE plus a small cushion
+
     let verdict;
-    if (cov80 >= 72 && cov80 <= 90) verdict = "Well calibrated";
-    else if (cov80 > 90) verdict = "Cone too wide (conservative)";
+    if (Math.abs(cov80 - 80) <= tol) verdict = "Well calibrated";
+    else if (cov80 > 80) verdict = "Cone too wide (conservative)";
     else verdict = "Cone too narrow (overconfident)";
 
     let bias;
@@ -577,6 +689,8 @@
       ok: true,
       horizon: horizon,
       windows: total,
+      nEff: nEff,
+      se80: se80,
       cov50: cov50,
       cov80: cov80,
       cov90: cov90,

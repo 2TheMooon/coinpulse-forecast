@@ -126,13 +126,13 @@
 
   // ---------- analysis ----------
   function modelOpts(symbol) {
-    // Selected coin runs full-resolution (bands + spaghetti); the rest run a
-    // lighter sim — the rail only needs score / median / odds. Keeps toggles snappy.
-    var full = symbol === state.selected;
+    // Uniform resolution so rail ranking and the detail view use the SAME model.
+    // (The engine seeds by symbol, so a differing path count would otherwise
+    // shift the numbers between the rail and the chart.)
     return {
       symbol: symbol,
       horizon: state.horizon,
-      paths: full ? 800 : 300,
+      paths: 600,
       driftDamp: DRIFT_PRESETS[state.drift].damp,
       volScale: VOL_PRESETS[state.vol].scale,
       fatTails: state.fatTails,
@@ -354,7 +354,7 @@
       stat("80% range", formatPrice(sim.terminal.p10) + " – " + formatPrice(sim.terminal.p90), "", "10th–90th percentile") +
       stat("Reach resistance", pR.toFixed(0) + "%", pR >= 50 ? "up" : "", "touch " + formatPrice(R) + " within " + state.horizon + "d") +
       stat("Break support", pS.toFixed(0) + "%", pS >= 50 ? "down" : "", "touch " + formatPrice(S) + " within " + state.horizon + "d") +
-      stat("Risk / reward", riskReward(a), "", "median upside vs downside");
+      stat("Risk / reward", riskReward(a), "", "p75 upside vs p25 downside");
   }
 
   function riskReward(a) {
@@ -421,7 +421,8 @@
       bar("90% band", cal.cov90, 90) +
       '<div class="cal-foot"><span>Direction <b>' + cal.dirAccuracy.toFixed(0) + '%</b></span>' +
       "<span><b>" + cal.bias + "</b></span></div>" +
-      '<div class="cal-foot"><span>' + cal.windows + " walk-forward windows · " + cal.horizon + "d horizon</span></div>";
+      '<div class="cal-foot"><span>' + cal.windows + " windows (~" + Math.round(cal.nEff) +
+      " independent) · ±" + cal.se80.toFixed(0) + "% SE on 80%-band · " + cal.horizon + "d</span></div>";
     if (els.calVerdict) {
       var good = cal.verdict === "Well calibrated";
       els.calVerdict.textContent = cal.verdict;
@@ -783,6 +784,7 @@
       plotH: plotH,
       s0: sim.s0,
       mu: sim.mu,
+      drift: sim.drift,
       sigma: sim.sigma,
       lastTime: lastTime,
     };
@@ -826,7 +828,7 @@
       var movePct = ((base - geo.s0) / geo.s0) * 100;
       var pAbove = 50;
       if (d >= 1 && geo.sigma > 0) {
-        var driftD = (geo.mu - 0.5 * geo.sigma * geo.sigma) * d;
+        var driftD = (Number.isFinite(geo.drift) ? geo.drift : geo.mu - 0.5 * geo.sigma * geo.sigma) * d;
         var volD = geo.sigma * Math.sqrt(d);
         var z = -driftD / volD;
         pAbove = (1 - window.Forecast._util.normCdf(z)) * 100;
@@ -898,9 +900,6 @@
     if (!state.bySymbol[symbol]) return;
     state.selected = symbol;
     state.hoverIndex = null;
-    // Upgrade the newly-selected coin to a full-resolution analysis.
-    var res = window.Forecast.analyze(state.bySymbol[symbol].candles, modelOpts(symbol));
-    if (res) state.analysis[symbol] = res;
     saveSettings();
     renderAll();
   }

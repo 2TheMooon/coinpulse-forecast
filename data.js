@@ -283,29 +283,59 @@
     return fetchJson(url).then(parseBinanceKlines);
   }
 
+  function metaFromBinanceTicker(t) {
+    var price = Number(t && t.lastPrice);
+    if (!Number.isFinite(price) || price <= 0) return null;
+    return {
+      price: price,
+      change24: Number(t.priceChangePercent) || 0,
+      volume24: Number(t.quoteVolume) || 0,
+      high24: Number(t.highPrice) || 0,
+      low24: Number(t.lowPrice) || 0,
+      open24: Number(t.openPrice) || 0,
+      mktcap: 0,
+    };
+  }
+
+  function loadBinanceTicker1(symbol) {
+    var url = "https://api.binance.com/api/v3/ticker/24hr?symbol=" + binanceSymbol(symbol);
+    return fetchJson(url).then(function (t) {
+      return metaFromBinanceTicker(t);
+    });
+  }
+
   function loadBinanceTickers(symbols) {
     var jsonArr = JSON.stringify(symbols.map(binanceSymbol));
     var url = "https://api.binance.com/api/v3/ticker/24hr?symbols=" + encodeURIComponent(jsonArr);
-    return fetchJson(url).then(function (arr) {
-      var map = {};
-      if (Array.isArray(arr)) {
-        arr.forEach(function (t) {
-          var sym = String(t.symbol || "").replace(/USDT$/, "");
-          var price = Number(t.lastPrice);
-          if (!Number.isFinite(price) || price <= 0) return;
-          map[sym] = {
-            price: price,
-            change24: Number(t.priceChangePercent) || 0,
-            volume24: Number(t.quoteVolume) || 0,
-            high24: Number(t.highPrice) || 0,
-            low24: Number(t.lowPrice) || 0,
-            open24: Number(t.openPrice) || 0,
-            mktcap: 0,
-          };
+    return fetchJson(url)
+      .then(function (arr) {
+        var map = {};
+        if (Array.isArray(arr)) {
+          arr.forEach(function (t) {
+            var sym = String(t.symbol || "").replace(/USDT$/, "");
+            var meta = metaFromBinanceTicker(t);
+            if (meta) map[sym] = meta;
+          });
+        }
+        return map;
+      })
+      .catch(function () {
+        // Batch fails wholesale if any one pair is invalid — fall back to
+        // per-symbol requests so the good ones still resolve.
+        return Promise.all(
+          symbols.map(function (s) {
+            return loadBinanceTicker1(s).catch(function () {
+              return null;
+            });
+          })
+        ).then(function (list) {
+          var map = {};
+          list.forEach(function (meta, i) {
+            if (meta) map[symbols[i]] = meta;
+          });
+          return map;
         });
-      }
-      return map;
-    });
+      });
   }
 
   function liveCoin(coin, candles, meta, src) {
