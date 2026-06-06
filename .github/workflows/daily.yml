@@ -1,0 +1,42 @@
+name: Daily calibration
+
+# Free, always-on cloud cron. Runs the strategy tournament + deterministic
+# auto-tune every day and commits the improved model — no API key, no AI.
+on:
+  schedule:
+    - cron: "0 9 * * *" # 09:00 UTC daily
+  workflow_dispatch: {} # allow manual "Run workflow"
+
+permissions:
+  contents: write # so the job can push the tuned model + reports back
+
+concurrency:
+  group: daily-calibration
+  cancel-in-progress: false
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run tournament + auto-tune
+        run: node backtest/daily.js --no-commit
+
+      - name: Commit improvements
+        run: |
+          git config user.name "coinpulse-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit today."
+          else
+            git commit -m "daily calibration $(date -u +%Y-%m-%d) [skip ci]"
+            git push
+          fi
