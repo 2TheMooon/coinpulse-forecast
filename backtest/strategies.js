@@ -289,6 +289,21 @@ function garchLite(closes, H, N, gauss, rng, opts) {
   return out;
 }
 
+// Ensemble: pool terminal samples from several base models. Mixing a fat-tailed
+// parametric model with two resampling models usually calibrates better than any
+// single one, because model risk is diversified.
+function ensemble(closes, H, N, gauss, rng, opts) {
+  opts = opts || {};
+  const parts = [gbmT, blockBootstrap, bootstrapIid];
+  const per = Math.max(1, Math.floor(N / parts.length));
+  const out = [];
+  for (let k = 0; k < parts.length; k += 1) {
+    const s = parts[k](closes, H, per, gauss, rng, opts);
+    for (let i = 0; i < s.length; i += 1) out.push(s[i]);
+  }
+  return Float64Array.from(out);
+}
+
 const STRATEGIES = [
   { key: "gbm_normal", label: "GBM (normal)", fn: gbmNormal, opts: { damp: 0.5 } },
   { key: "gbm_t", label: "GBM + Student-t", fn: gbmT, opts: { damp: 0.5, dof: 5 } },
@@ -298,6 +313,7 @@ const STRATEGIES = [
   { key: "momentum", label: "Momentum", fn: momentum, opts: { carry: 0.6 } },
   { key: "ewma_t_zero", label: "EWMA vol, zero drift (t)", fn: gbmT, opts: { damp: 0, dof: 5 } },
   { key: "garch", label: "GARCH(1,1)-lite", fn: garchLite, opts: { damp: 0.5 } },
+  { key: "ensemble", label: "Ensemble (GBM-t + bootstraps)", fn: ensemble, opts: { damp: 0.5, dof: 5, block: 5 } },
 ];
 
 // ============================================================================
