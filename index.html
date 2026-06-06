@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CoinPulse Forecast — where coins go next</title>
+  <link rel="preconnect" href="https://min-api.cryptocompare.com" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">CP</span>
+        <div>
+          <strong>CoinPulse <span class="accent">Forecast</span></strong>
+          <small>where the coins go next · Monte-Carlo projection terminal</small>
+        </div>
+      </div>
+      <div class="market">
+        <div class="m-cell"><span>Avg 24h</span><b class="value" id="mAvg">+0.0%</b></div>
+        <div class="m-cell"><span>Tracked vol</span><b class="value" id="mVolume">$—</b></div>
+        <div class="m-cell"><span>Bullish breadth</span><b class="value" id="mBreadth">— / —</b></div>
+        <div class="m-cell"><span>Regime</span><b class="value" id="mRegime">—</b></div>
+        <span class="status" id="dataStatus" data-tone="loading">loading…</span>
+        <button class="icon-btn" id="refreshBtn" title="Reload live data">↻</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <!-- Coin rail -->
+      <aside class="rail-wrap">
+        <div class="rail-head">
+          <h2>Coins</h2>
+          <small>ranked by forecast score</small>
+        </div>
+        <input class="rail-search" id="railSearch" type="search" placeholder="Filter coins…" autocomplete="off" />
+        <div class="rail" id="rail"></div>
+        <p class="disclaimer">Educational tool. Forecasts are probabilistic simulations from historical
+          volatility — not financial advice.</p>
+      </aside>
+
+      <!-- Main stage -->
+      <main class="stage">
+        <section class="hero">
+          <div class="hero-left">
+            <span class="hero-mark" id="heroMark">B</span>
+            <div>
+              <div class="hero-id"><h1 id="heroSymbol">BTC</h1><span id="heroName">Bitcoin</span></div>
+              <div class="hero-chips" id="heroChips"></div>
+            </div>
+          </div>
+          <div class="hero-right">
+            <div class="hero-price-block">
+              <strong id="heroPrice">$—</strong>
+              <span class="hero-change" id="heroChange">+0.0% 24h</span>
+            </div>
+            <div class="score-ring" id="heroScore" title="forecast score">—</div>
+          </div>
+        </section>
+
+        <section class="controls">
+          <div class="ctrl-group">
+            <label>Horizon</label>
+            <div class="segmented">
+              <button data-horizon="7">7D</button>
+              <button data-horizon="14">14D</button>
+              <button data-horizon="30" class="active">30D</button>
+              <button data-horizon="90">90D</button>
+            </div>
+          </div>
+          <div class="ctrl-group">
+            <label>Drift</label>
+            <div class="segmented">
+              <button data-drift="conservative">Conservative</button>
+              <button data-drift="balanced" class="active">Balanced</button>
+              <button data-drift="trend">Trend</button>
+            </div>
+          </div>
+          <div class="ctrl-group">
+            <label>Volatility</label>
+            <div class="segmented">
+              <button data-vol="calm">Calm</button>
+              <button data-vol="normal" class="active">Normal</button>
+              <button data-vol="stress">Stress</button>
+            </div>
+          </div>
+          <div class="ctrl-group">
+            <label>Fat tails</label>
+            <button class="toggle on" id="fatToggle"><i></i><span>Student-t</span></button>
+          </div>
+        </section>
+
+        <section class="chart-card">
+          <div class="chart-head">
+            <div>
+              <h2>Probability cone</h2>
+              <p>Where price could land over the next <b class="muted" id="horizonLabel">30 days</b> — 800 Monte-Carlo paths</p>
+              <p class="chart-caveat">Models historical volatility only — no news, liquidations, macro or on-chain flows.</p>
+            </div>
+            <div class="chart-legend">
+              <span><i class="sw hist"></i>history</span>
+              <span><i class="sw median"></i>median</span>
+              <span><i class="sw cone"></i>50% (p25–p75)</span>
+              <span><i class="sw cone2"></i>90% (p5–p95)</span>
+            </div>
+          </div>
+          <div class="chart-wrap" id="chartWrap">
+            <canvas id="forecastChart"></canvas>
+            <div class="chart-tip" id="chartTip"></div>
+          </div>
+        </section>
+
+        <section class="scenarios" id="scenarios"></section>
+
+        <section class="prob-card">
+          <div class="prob-head"><h2>Forecast readout</h2><p>What the simulation implies for the next move</p></div>
+          <div class="prob-grid" id="probabilities"></div>
+        </section>
+      </main>
+
+      <!-- Detail panel -->
+      <aside class="detail">
+        <div class="detail-card">
+          <div class="card-head-row">
+            <h3>Forecast calibration</h3>
+            <span class="cal-verdict" id="calVerdict">—</span>
+          </div>
+          <p class="card-sub">How often past forecasts actually contained the realized price (walk-forward).</p>
+          <div class="cal-body" id="calibration"></div>
+        </div>
+
+        <div class="detail-card">
+          <h3>Model statistics</h3>
+          <div class="kv-list" id="modelStats"></div>
+        </div>
+
+        <div class="detail-card">
+          <h3>Key levels</h3>
+          <div class="kv-list" id="levels"></div>
+        </div>
+
+        <div class="detail-card">
+          <h3>Signal stack</h3>
+          <div class="metric-list" id="signals"></div>
+        </div>
+
+        <div class="detail-card">
+          <h3>Projection table</h3>
+          <div class="ftable" id="forecastTable"></div>
+        </div>
+
+        <div class="detail-card notes">
+          <div><strong class="up-label">Why it could rise</strong><p id="noteUp"></p></div>
+          <div><strong class="down-label">Why it could fall</strong><p id="noteDown"></p></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="forecast.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
