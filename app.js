@@ -879,6 +879,94 @@
   }
 
   // ---------- full render ----------
+  // ---------- AI maintainer summary (from backtest/ai-daily-summary.md) ----------
+  function mdEscape(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function mdInline(s) {
+    return s.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`(.+?)`/g, "<code>$1</code>");
+  }
+  function miniMarkdown(md) {
+    var lines = mdEscape(md).split(/\r?\n/);
+    var out = "";
+    var i = 0;
+    while (i < lines.length) {
+      var line = lines[i];
+      if (/^\s*\|/.test(line)) {
+        var rows = [];
+        while (i < lines.length && /^\s*\|/.test(lines[i])) {
+          rows.push(lines[i]);
+          i += 1;
+        }
+        var cells = rows
+          .map(function (r) {
+            return r.trim().replace(/^\||\|$/g, "").split("|").map(function (c) {
+              return c.trim();
+            });
+          })
+          .filter(function (c) {
+            return !c.every(function (x) {
+              return x === "" || /^:?-+:?$/.test(x);
+            });
+          });
+        out +=
+          '<table class="ai-table">' +
+          cells
+            .map(function (c, ri) {
+              var tag = ri === 0 ? "th" : "td";
+              return "<tr>" + c.map(function (x) {
+                return "<" + tag + ">" + mdInline(x) + "</" + tag + ">";
+              }).join("") + "</tr>";
+            })
+            .join("") +
+          "</table>";
+        continue;
+      }
+      var h = line.match(/^(#{1,4})\s+(.*)$/);
+      if (h) {
+        var lvl = Math.min(6, h[1].length + 2);
+        out += "<h" + lvl + ' class="ai-h">' + mdInline(h[2]) + "</h" + lvl + ">";
+        i += 1;
+        continue;
+      }
+      if (/^\s*[-*]\s+/.test(line)) {
+        var items = [];
+        while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {
+          items.push(lines[i].replace(/^\s*[-*]\s+/, ""));
+          i += 1;
+        }
+        out += "<ul>" + items.map(function (x) {
+          return "<li>" + mdInline(x) + "</li>";
+        }).join("") + "</ul>";
+        continue;
+      }
+      if (line.trim() === "") {
+        i += 1;
+        continue;
+      }
+      out += "<p>" + mdInline(line) + "</p>";
+      i += 1;
+    }
+    return out;
+  }
+  function renderAiSummary() {
+    var el = document.getElementById("aiSummary");
+    if (!el || typeof fetch !== "function") return;
+    fetch("backtest/ai-daily-summary.md", { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("no report");
+        return r.text();
+      })
+      .then(function (md) {
+        el.innerHTML = miniMarkdown(md);
+      })
+      .catch(function () {
+        el.innerHTML =
+          '<p class="card-sub">No AI report yet — it runs daily. See the ' +
+          '<a href="https://github.com/2TheMooon/coinpulse-forecast/blob/master/backtest/ai-daily-summary.md" target="_blank" rel="noreferrer">latest on GitHub</a>.</p>';
+      });
+  }
+
   function renderAll() {
     if (els.horizonLabel) els.horizonLabel.textContent = state.horizon + " days";
     renderRail();
@@ -1058,6 +1146,7 @@
     // Render instantly with deterministic demo data, then upgrade to live.
     applyDataset({ source: "demo", coins: window.CoinData.demoAll(), liveCount: 0, total: 0 });
     load(false);
+    renderAiSummary();
     // Keep prices fresh while the tab stays open.
     refreshTimer = window.setInterval(function () {
       if (!document.hidden) load(true);
