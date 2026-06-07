@@ -153,11 +153,15 @@ function round(v, dp) {
 // ---------- apply ----------
 function rewriteModelBlock(volPremium, driftDamp, tDof) {
   const src = fs.readFileSync(FORECAST_JS, "utf8");
+  // Preserve longHorizonBoost from the existing MODEL block
+  const lhbMatch = src.match(/longHorizonBoost:\s*([\d.]+)/);
+  const lhb = lhbMatch ? lhbMatch[1] : "0";
   const block =
     "var MODEL = {\n" +
     "    volPremium: " + volPremium + ", // global multiplier on estimated daily sigma\n" +
     "    driftDamp: " + driftDamp + ", // fraction of raw drift carried forward\n" +
     "    tDof: " + tDof + ", // Student-t degrees of freedom (fat tails)\n" +
+    "    longHorizonBoost: " + lhb + ", // horizon-dependent vol boost (0 at 7d, full at 30d)\n" +
     "  };";
   const re = /var MODEL = \{[\s\S]*?\};/;
   if (!re.test(src)) throw new Error("Could not find MODEL block in forecast.js");
