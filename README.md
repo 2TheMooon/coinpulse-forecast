@@ -30,16 +30,6 @@ Two layers keep the model calibrated over time:
 
 Every change is a reviewable git commit — see `CHANGELOG.md` and the commit history.
 
-## Run locally
-```bash
-# any static server, e.g.
-python -m http.server 8124
-# then open http://localhost:8124
-
-# headless backtest tournament + reports
-node backtest/run-backtest.js
-```
-
 ## Layout
 | File | Role |
 |---|---|
