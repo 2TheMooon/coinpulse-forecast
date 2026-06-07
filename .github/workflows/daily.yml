@@ -1,5 +1,5 @@
 name: Daily calibration
-
+# CoinPulse fork — daily strategy tournament + auto-tune (free cloud cron).
 # Free, always-on cloud cron. Runs the strategy tournament + deterministic
 # auto-tune every day and commits the improved model — no API key, no AI.
 on:
