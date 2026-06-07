@@ -28,7 +28,7 @@
   // coverage toward the 80%/50% targets over time.
   var MODEL = {
     volPremium: 1.05, // global multiplier on estimated daily sigma
-    driftDamp: 0.4, // fraction of raw drift carried forward
+    driftDamp: 0.7, // fraction of raw drift carried forward
     tDof: 5, // Student-t degrees of freedom (fat tails)
   };
   // <<< AUTO-TUNED MODEL CONFIG <<<
