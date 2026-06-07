@@ -27,8 +27,8 @@
   // analytic cross-check AND the calibration), so tuning it actually moves
   // coverage toward the 80%/50% targets over time.
   var MODEL = {
-    volPremium: 1.05, // global multiplier on estimated daily sigma
-    driftDamp: 0.7, // fraction of raw drift carried forward
+    volPremium: 1, // global multiplier on estimated daily sigma
+    driftDamp: 0.55, // fraction of raw drift carried forward
     tDof: 5, // Student-t degrees of freedom (fat tails)
     longHorizonBoost: 0.10, // horizon-dependent vol boost (0 at 7d, full at 30d)
   };

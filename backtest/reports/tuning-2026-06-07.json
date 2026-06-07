@@ -2,18 +2,18 @@
   "date": "2026-06-07",
   "current": {
     "volPremium": 1.05,
-    "driftDamp": 0.4,
+    "driftDamp": 0.7,
     "tDof": 5
   },
-  "baselineError": 22.87,
+  "baselineError": 21.35,
   "best": {
-    "volPremium": 1.05,
-    "driftDamp": 0.7,
-    "error": 18.35,
-    "cov80": 78,
-    "meanPit": 0.489
+    "volPremium": 1,
+    "driftDamp": 0.55,
+    "error": 19.53,
+    "cov80": 77.3,
+    "meanPit": 0.484
   },
-  "improvement": 4.51,
+  "improvement": 1.82,
   "applied": true,
-  "coinsUsed": 2
+  "coinsUsed": 4
 }
