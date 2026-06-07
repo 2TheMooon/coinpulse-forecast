@@ -1,4 +1,4 @@
-# AI Daily Summary — 2026-06-07
+# AI Daily Summary — 2026-06-07 (run 2)
 
 ## Per-horizon calibration (shipped engine)
 | Horizon | cov80 | meanPIT | Target |
@@ -8,12 +8,10 @@
 | 30d     | 73%   | 0.53    | 80%    |
 
 ## Action taken
-Added `longHorizonBoost: 0.10` to MODEL config — a horizon-dependent vol scaling
-that linearly increases sigma from 1.0x at 7d to 1.10x at 30d. This addresses
-persistent 30d under-coverage (70-73% cov80 across both available report days)
-that the flat `volPremium` knob cannot fix without over-covering shorter horizons.
-Applied consistently in simulate(), backtestCalibration(), and analyticTerminal().
-Updated auto-tune.js rewriteModelBlock to preserve the new parameter.
+No code change. The 7d and 14d horizons are well-calibrated (within 3pp of
+80% target, PIT near 0.50). The 30d under-coverage (73%) was already addressed
+in the previous run by adding `longHorizonBoost: 0.10`. Awaiting the next
+backtest report (post-fix) to evaluate the effect before further adjustments.
 
 ## Recommendation
 Tournament says KEEP shipped engine (best challenger gbm_t score 22.0 vs shipped 22.5, below 3-point switch margin).
