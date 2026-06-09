@@ -30,7 +30,7 @@
     volPremium: 1, // global multiplier on estimated daily sigma
     driftDamp: 0.55, // fraction of raw drift carried forward
     tDof: 5, // Student-t degrees of freedom (fat tails)
-    longHorizonBoost: 0.20, // horizon-dependent vol boost (0 at 7d, full at 30d)
+    longHorizonBoost: 0.30, // horizon-dependent vol boost (0 at 7d, full at 30d)
   };
   // <<< AUTO-TUNED MODEL CONFIG <<<
 
