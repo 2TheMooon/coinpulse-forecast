@@ -24,5 +24,6 @@ tune and improve the forecasting model.
 - 2026-06-08 AI daily: longHorizonBoost 0.10→0.20 — 30d cov80 still 67% (13pp under target) after first boost; doubling horizon-dependent vol scaling
 - 2026-06-09 AI daily: longHorizonBoost 0.20→0.30 — 30d cov80 improved to 76% but still 4pp under target; 7d/14d on target (80%/79%)
 - 2026-06-10 AI daily: no change — awaiting fresh report to evaluate longHorizonBoost 0.30 effect; 7d/14d on target (80%/79%)
+- 2026-06-11 AI daily: no change — report still dated 06-08 (pre-0.30 boost); awaiting fresh backtest to evaluate longHorizonBoost 0.30
 
 - 2026-06-06 auto-tune: volPremium 1→1.05, driftDamp 0.55→0.4 (calibration error 26.44→25.18, cov80→78.3%)
