@@ -15,8 +15,12 @@ set LOG=backtest\ai-daily.log
 echo. >> "%LOG%"
 echo ==== %date% %time% : AI daily (fork) ==== >> "%LOG%"
 
-REM --- 1) sync cloud's deterministic commit + fresh report ---
+REM --- 1) sync, then regenerate the report LOCALLY. GitHub's runners are IP-
+REM        blocked by the crypto APIs (CC 0 / Binance 451), so the cloud report
+REM        goes stale — this machine CAN fetch, so do the deterministic layer here.
 git pull --rebase origin master >> "%LOG%" 2>&1
+node backtest\run-backtest.js >> "%LOG%" 2>&1
+node backtest\auto-tune.js --apply >> "%LOG%" 2>&1
 
 REM --- 2) autonomous AI creative pass (Opus 4.8 — max model) ---
 set CLAUDE_EXE=claude
