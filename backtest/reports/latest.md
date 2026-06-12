@@ -1,6 +1,6 @@
 # CoinPulse Strategy Tournament — 2026-06-12
 
-_Generated 2026-06-12T06:38:38.408Z · 14 coins · 300 samples/window · 10.8s_
+_Generated 2026-06-12T12:23:24.887Z · 14 coins · 300 samples/window · 10.4s_
 
 ## 🏆 Recommendation: **KEEP → `live_engine`**
 
@@ -21,9 +21,9 @@ Overall best: **momentum** · by horizon: 7d→`momentum` · 14d→`momentum` ·
 | 4 | GBM + Student-t | 26.6 |
 | 5 | GARCH(1,1)-lite | 28.1 |
 | 6 | EWMA vol, zero drift (t) | 29.2 |
-| 7 | Ensemble (GBM-t + bootstraps) | 30.5 |
+| 7 | Ensemble (GBM-t + bootstraps) | 30.6 |
 | 8 | Bootstrap (IID) | 34.9 |
-| 9 | Block bootstrap | 35.1 |
+| 9 | Block bootstrap | 35.2 |
 | 10 | Mean-reversion (OU) | 60.9 |
 
 ## 7-day horizon
@@ -45,15 +45,15 @@ Overall best: **momentum** · by horizon: 7d→`momentum` · 14d→`momentum` ·
 
 | Rank | Strategy | cov50 | cov80 | cov90 | mean PIT | dir % | width | score |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Momentum | 46 | **76** | 87 | 0.46 | 53 | 38% | 21.0 |
+| 1 | Momentum | 46 | **76** | 87 | 0.46 | 53 | 38% | 20.9 |
 | 2 | GBM (normal) | 52 | **81** | 88 | 0.44 | 57 | 39% | 22.1 |
 | 3 | GBM + Student-t | 50 | **80** | 88 | 0.44 | 56 | 37% | 22.9 |
-| 4 | GARCH(1,1)-lite | 51 | **80** | 88 | 0.44 | 55 | 37% | 23.8 |
-| 5 | Shipped engine (forecast.js) _(shipped)_ | 58 | **83** | 90 | 0.46 | 56 | — | 24.5 |
-| 6 | EWMA vol, zero drift (t) | 53 | **82** | 88 | 0.42 | 55 | 38% | 25.9 |
-| 7 | Ensemble (GBM-t + bootstraps) | 52 | **80** | 91 | 0.42 | 54 | 39% | 28.8 |
+| 4 | GARCH(1,1)-lite | 51 | **80** | 88 | 0.44 | 55 | 37% | 23.9 |
+| 5 | Shipped engine (forecast.js) _(shipped)_ | 58 | **83** | 90 | 0.46 | 56 | — | 24.6 |
+| 6 | EWMA vol, zero drift (t) | 53 | **82** | 88 | 0.42 | 55 | 38% | 26.1 |
+| 7 | Ensemble (GBM-t + bootstraps) | 52 | **80** | 91 | 0.42 | 54 | 39% | 29.0 |
 | 8 | Bootstrap (IID) | 54 | **83** | 91 | 0.41 | 52 | 41% | 33.1 |
-| 9 | Block bootstrap | 51 | **80** | 89 | 0.41 | 54 | 38% | 33.8 |
+| 9 | Block bootstrap | 51 | **80** | 89 | 0.41 | 54 | 38% | 33.9 |
 | 10 | Mean-reversion (OU) | 45 | **67** | 78 | 0.38 | 47 | 37% | 56.8 |
 
 ## 30-day horizon
@@ -78,7 +78,7 @@ Overall best: **momentum** · by horizon: 7d→`momentum` · 14d→`momentum` ·
 | BTC | 76% / 0.45 / 54% / 22 | 67% / 0.45 / 53% / 35.7 | 65% / 0.44 / 46% / 51.7 |
 | ETH | 80% / 0.45 / 54% / 13.5 | 80% / 0.45 / 51% / 20.3 | 72% / 0.43 / 52% / 44.7 |
 | SOL | 80% / 0.45 / 66% / 15.8 | 76% / 0.46 / 51% / 14.2 | 74% / 0.47 / 57% / 21.3 |
-| BNB | 72% / 0.48 / 48% / 17.5 | 75% / 0.47 / 42% / 25 | 60% / 0.49 / 36% / 49.7 |
+| BNB | 72% / 0.48 / 48% / 17.5 | 75% / 0.48 / 42% / 24.8 | 60% / 0.49 / 36% / 49.7 |
 | XRP | 84% / 0.46 / 48% / 15.1 | 78% / 0.46 / 45% / 17.2 | 80% / 0.47 / 46% / 20.8 |
 | SUI | 76% / 0.46 / 50% / 17.3 | 69% / 0.47 / 45% / 25 | 74% / 0.5 / 57% / 17.9 |
 | AVAX | 74% / 0.43 / 60% / 22.7 | 73% / 0.44 / 57% / 24.8 | 72% / 0.5 / 50% / 25.2 |
