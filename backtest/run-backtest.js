@@ -152,6 +152,37 @@ function normalizeBinance(rows) {
   }
   return out.length >= 60 ? out : null;
 }
+// Coinbase Exchange — US/datacenter-friendly IPs (works from GitHub runners that
+// CryptoCompare/Binance block). Columns: [time_s, low, high, open, close, volume],
+// returned NEWEST-FIRST, so sort ascending.
+function normalizeCoinbase(rows) {
+  if (!Array.isArray(rows)) return null;
+  const out = [];
+  for (let i = 0; i < rows.length; i += 1) {
+    const r = rows[i];
+    const close = num(r[4], NaN);
+    if (!Number.isFinite(close) || close <= 0) continue;
+    out.push({ time: num(r[0], 0), low: num(r[1], close), high: num(r[2], close), open: num(r[3], close), close: close, volume: num(r[5], 0) });
+  }
+  out.sort((a, b) => a.time - b.time);
+  return out.length >= 60 ? out : null;
+}
+// CoinGecko market_chart — daily closes (close-only; OHLC synthesised from close).
+const COINGECKO_IDS = {
+  BTC: "bitcoin", ETH: "ethereum", SOL: "solana", BNB: "binancecoin", XRP: "ripple",
+  SUI: "sui", AVAX: "avalanche-2", LINK: "chainlink", INJ: "injective-protocol",
+  OP: "optimism", ARB: "arbitrum", DOGE: "dogecoin", TIA: "celestia", APT: "aptos",
+};
+function normalizeCoinGecko(payload) {
+  if (!payload || !Array.isArray(payload.prices)) return null;
+  const out = [];
+  for (let i = 0; i < payload.prices.length; i += 1) {
+    const close = num(payload.prices[i][1], NaN);
+    if (!Number.isFinite(close) || close <= 0) continue;
+    out.push({ time: Math.floor(num(payload.prices[i][0], 0) / 1000), open: close, high: close, low: close, close: close, volume: 0 });
+  }
+  return out.length >= 60 ? out : null;
+}
 async function fetchCandles(symbol) {
   const ccUrl = "https://min-api.cryptocompare.com/data/v2/histoday?fsym=" + encodeURIComponent(symbol) + "&tsym=USD&limit=" + HISTORY_LIMIT;
   try {
@@ -165,7 +196,24 @@ async function fetchCandles(symbol) {
     const candles = normalizeBinance(await fetchJson(bnUrl));
     if (candles) return { candles, source: "binance" };
   } catch (err) {
-    /* both failed */
+    /* fall through */
+  }
+  // Coinbase — reachable from GitHub runners that block CC/Binance.
+  try {
+    const candles = normalizeCoinbase(await fetchJson("https://api.exchange.coinbase.com/products/" + encodeURIComponent(symbol) + "-USD/candles?granularity=86400"));
+    if (candles) return { candles, source: "coinbase" };
+  } catch (err) {
+    /* fall through */
+  }
+  // CoinGecko — covers coins without a Coinbase USD pair (e.g. BNB).
+  try {
+    const id = COINGECKO_IDS[symbol];
+    if (id) {
+      const candles = normalizeCoinGecko(await fetchJson("https://api.coingecko.com/api/v3/coins/" + id + "/market_chart?vs_currency=usd&days=" + HISTORY_LIMIT));
+      if (candles) return { candles, source: "coingecko" };
+    }
+  } catch (err) {
+    /* all feeds failed */
   }
   return { candles: null, source: null };
 }
