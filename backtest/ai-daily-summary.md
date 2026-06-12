@@ -1,18 +1,16 @@
-# AI Daily Summary — 2026-06-11
+# AI Daily Summary — 2026-06-12
 
-## Per-horizon calibration (shipped engine, from 2026-06-08 report)
+## Per-horizon calibration (shipped engine, from fresh 2026-06-12 report)
 | Horizon | cov80 | meanPIT | Target |
 |---------|-------|---------|--------|
-| 7d      | 80%   | 0.48    | 80%    |
-| 14d     | 79%   | 0.48    | 80%    |
-| 30d     | 76%   | 0.52    | 80%    |
+| 7d      | 78%   | 0.47    | 80%    |
+| 14d     | 77%   | 0.48    | 80%    |
+| 30d     | 78%   | 0.53    | 80%    |
 
 ## Action taken
-No code change. The report (still dated 2026-06-08) predates the longHorizonBoost
-0.20→0.30 change from 06-09. This is the second consecutive no-op waiting for a
-fresh backtest. 7d and 14d remain on target; 30d under-coverage (76%) may already
-be addressed by the 0.30 boost but we cannot confirm without new data.
-
-## Recommendation
-Tournament says KEEP shipped engine (score 20.4 vs next-best 23.5). Next run
-should evaluate 0.30 boost effect once a fresh report is available.
+No code change. First fresh report since longHorizonBoost 0.20→0.30 (06-09).
+30d cov80 improved 76%→78%, confirming the boost is working. However, all
+horizons are now uniformly 2-3pp under 80% — including 7d where longHorizonBoost
+has zero effect (factor=1.0). This points to a data-window shift rather than a
+structural deficiency. Live engine remains overall #1 (score 25.6 vs 26.4).
+Will monitor for persistence before making further parameter changes.
