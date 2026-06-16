@@ -1,6 +1,6 @@
 # CoinPulse Strategy Tournament — 2026-06-16
 
-_Generated 2026-06-16T14:15:37.008Z · 14 coins · 300 samples/window · 10.5s_
+_Generated 2026-06-16T14:17:44.135Z · 14 coins · 300 samples/window · 10.5s_
 
 ## 🏆 Recommendation: **SWITCH → `momentum`**
 

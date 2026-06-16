@@ -1,7 +1,7 @@
 {
   "date": "2026-06-16",
-  "generatedAt": "2026-06-16T14:15:37.008Z",
-  "durationMs": 10479,
+  "generatedAt": "2026-06-16T14:17:44.135Z",
+  "durationMs": 10522,
   "config": {
     "horizons": [
       7,
@@ -938,7 +938,7 @@
     }
   },
   "routing": {
-    "generatedAt": "2026-06-16T14:15:37.008Z",
+    "generatedAt": "2026-06-16T14:17:44.135Z",
     "short": {
       "maxDays": 7,
       "strategy": "momentum"
