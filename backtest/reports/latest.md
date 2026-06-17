@@ -1,12 +1,12 @@
 # CoinPulse Strategy Tournament — 2026-06-17
 
-_Generated 2026-06-17T12:54:54.716Z · 14 coins · 300 samples/window · 10.4s_
+_Generated 2026-06-17T17:20:28.331Z · 14 coins · 300 samples/window · 41.0s_
 
 ## 🏆 Recommendation: **KEEP → `live_engine`**
 
-> Best challenger (Momentum) does not beat the shipped engine by the required 3-point margin.
+> Shipped engine is already the best-calibrated overall.
 
-Overall best: **momentum** · by horizon: 7d→`momentum` · 14d→`gbm_normal` · 30d→`live_engine`
+Overall best: **live_engine** · by horizon: 7d→`live_engine` · 14d→`live_engine` · 30d→`ensemble`
 
 > Calibration target: 80% band contains ~80% of realized prices, mean PIT ~0.50.
 > `score` = |cov50−50| + |cov80−80| + |cov90−90| + 200·|PIT−0.5|  (lower = better).
@@ -15,79 +15,79 @@ Overall best: **momentum** · by horizon: 7d→`momentum` · 14d→`gbm_normal` 
 
 | Rank | Strategy | mean score |
 |---|---|---|
-| 1 | Momentum | 23.6 |
-| 2 | GBM + Student-t | 23.6 |
-| 3 | GBM (normal) | 24.6 |
-| 4 | GARCH(1,1)-lite | 25.5 |
-| 5 | Shipped engine (forecast.js) _(shipped)_ | 26.1 |
-| 6 | EWMA vol, zero drift (t) | 27.7 |
-| 7 | Ensemble (GBM-t + bootstraps) | 28.8 |
-| 8 | Block bootstrap | 32.8 |
-| 9 | Bootstrap (IID) | 33.9 |
-| 10 | Mean-reversion (OU) | 59.6 |
+| 1 | Shipped engine (forecast.js) _(shipped)_ | 23.2 |
+| 2 | Ensemble (GBM-t + bootstraps) | 27.5 |
+| 3 | GARCH(1,1)-lite | 28.2 |
+| 4 | GBM (normal) | 28.3 |
+| 5 | Bootstrap (IID) | 29.4 |
+| 6 | GBM + Student-t | 29.6 |
+| 7 | Block bootstrap | 30.5 |
+| 8 | Momentum | 36.7 |
+| 9 | EWMA vol, zero drift (t) | 36.9 |
+| 10 | Mean-reversion (OU) | 50.1 |
 
 ## 7-day horizon
 
 | Rank | Strategy | cov50 | cov80 | cov90 | mean PIT | dir % | width | score |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Momentum | 44 | **79** | 90 | 0.49 | 46 | 27% | 13.8 |
-| 2 | GBM + Student-t | 53 | **80** | 90 | 0.48 | 55 | 27% | 15.6 |
-| 3 | GARCH(1,1)-lite | 54 | **80** | 90 | 0.47 | 54 | 26% | 17.8 |
-| 4 | EWMA vol, zero drift (t) | 54 | **81** | 90 | 0.46 | 55 | 27% | 17.8 |
-| 5 | GBM (normal) | 56 | **82** | 91 | 0.47 | 54 | 28% | 19.7 |
-| 6 | Ensemble (GBM-t + bootstraps) | 56 | **82** | 92 | 0.47 | 52 | 28% | 20.2 |
-| 7 | Shipped engine (forecast.js) _(shipped)_ | 62 | **82** | 88 | 0.48 | 57 | — | 21.7 |
-| 8 | Block bootstrap | 58 | **83** | 91 | 0.46 | 48 | 28% | 24.6 |
-| 9 | Bootstrap (IID) | 59 | **85** | 92 | 0.45 | 54 | 29% | 28.9 |
-| 10 | Mean-reversion (OU) | 54 | **78** | 86 | 0.42 | 48 | 28% | 31.1 |
+| 1 | Shipped engine (forecast.js) _(shipped)_ | 54 | **80** | 88 | 0.49 | 55 | — | 18.2 |
+| 2 | GBM (normal) | 55 | **77** | 87 | 0.47 | 56 | 25% | 22.7 |
+| 3 | GARCH(1,1)-lite | 53 | **77** | 89 | 0.47 | 55 | 24% | 23.0 |
+| 4 | Ensemble (GBM-t + bootstraps) | 54 | **78** | 89 | 0.47 | 55 | 25% | 23.1 |
+| 5 | GBM + Student-t | 54 | **77** | 86 | 0.48 | 57 | 24% | 23.5 |
+| 6 | Momentum | 47 | **75** | 85 | 0.47 | 48 | 25% | 23.8 |
+| 7 | Bootstrap (IID) | 57 | **81** | 90 | 0.46 | 56 | 27% | 26.4 |
+| 8 | Block bootstrap | 53 | **77** | 86 | 0.46 | 56 | 24% | 27.3 |
+| 9 | EWMA vol, zero drift (t) | 53 | **77** | 87 | 0.44 | 57 | 24% | 29.3 |
+| 10 | Mean-reversion (OU) | 55 | **75** | 83 | 0.43 | 50 | 25% | 38.0 |
 
 ## 14-day horizon
 
 | Rank | Strategy | cov50 | cov80 | cov90 | mean PIT | dir % | width | score |
 |---|---|---|---|---|---|---|---|---|
-| 1 | GBM (normal) | 51 | **82** | 90 | 0.45 | 58 | 39% | 20.3 |
-| 2 | GBM + Student-t | 49 | **81** | 89 | 0.45 | 59 | 38% | 21.3 |
-| 3 | Momentum | 42 | **77** | 88 | 0.47 | 51 | 38% | 22.5 |
-| 4 | Shipped engine (forecast.js) _(shipped)_ | 58 | **83** | 90 | 0.46 | 59 | — | 23.9 |
-| 5 | GARCH(1,1)-lite | 47 | **82** | 90 | 0.45 | 58 | 37% | 24.2 |
-| 6 | EWMA vol, zero drift (t) | 52 | **81** | 89 | 0.42 | 57 | 38% | 25.3 |
-| 7 | Ensemble (GBM-t + bootstraps) | 51 | **84** | 92 | 0.42 | 54 | 39% | 28.9 |
-| 8 | Block bootstrap | 48 | **83** | 91 | 0.42 | 53 | 39% | 30.4 |
-| 9 | Bootstrap (IID) | 50 | **85** | 93 | 0.42 | 52 | 41% | 31.6 |
-| 10 | Mean-reversion (OU) | 42 | **70** | 80 | 0.39 | 46 | 37% | 52.8 |
+| 1 | Shipped engine (forecast.js) _(shipped)_ | 51 | **78** | 87 | 0.49 | 59 | — | 19.3 |
+| 2 | GARCH(1,1)-lite | 47 | **75** | 84 | 0.48 | 61 | 34% | 29.0 |
+| 3 | Ensemble (GBM-t + bootstraps) | 49 | **75** | 83 | 0.46 | 56 | 35% | 29.8 |
+| 4 | GBM (normal) | 48 | **73** | 82 | 0.47 | 61 | 35% | 29.8 |
+| 5 | Bootstrap (IID) | 53 | **78** | 85 | 0.45 | 59 | 38% | 31.0 |
+| 6 | GBM + Student-t | 46 | **72** | 83 | 0.47 | 61 | 34% | 32.5 |
+| 7 | Block bootstrap | 47 | **75** | 83 | 0.45 | 54 | 33% | 32.5 |
+| 8 | Momentum | 45 | **70** | 83 | 0.45 | 54 | 35% | 35.5 |
+| 9 | EWMA vol, zero drift (t) | 50 | **74** | 82 | 0.42 | 56 | 35% | 39.1 |
+| 10 | Mean-reversion (OU) | 48 | **72** | 77 | 0.42 | 51 | 32% | 47.2 |
 
 ## 30-day horizon
 
 | Rank | Strategy | cov50 | cov80 | cov90 | mean PIT | dir % | width | score |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Shipped engine (forecast.js) _(shipped)_ | 63 | **84** | 91 | 0.46 | 62 | — | 32.9 |
-| 2 | GBM (normal) | 53 | **75** | 83 | 0.43 | 62 | 56% | 33.8 |
-| 3 | GBM + Student-t | 53 | **75** | 83 | 0.42 | 62 | 56% | 33.9 |
-| 4 | Momentum | 44 | **69** | 80 | 0.47 | 55 | 54% | 34.3 |
-| 5 | GARCH(1,1)-lite | 51 | **75** | 85 | 0.42 | 62 | 55% | 34.6 |
-| 6 | Ensemble (GBM-t + bootstraps) | 59 | **81** | 91 | 0.41 | 58 | 68% | 37.2 |
-| 7 | EWMA vol, zero drift (t) | 57 | **77** | 84 | 0.39 | 69 | 57% | 39.9 |
-| 8 | Bootstrap (IID) | 54 | **77** | 88 | 0.39 | 50 | 60% | 41.1 |
-| 9 | Block bootstrap | 50 | **74** | 85 | 0.39 | 51 | 56% | 43.3 |
-| 10 | Mean-reversion (OU) | 39 | **55** | 65 | 0.34 | 40 | 47% | 94.9 |
+| 1 | Ensemble (GBM-t + bootstraps) | 59 | **79** | 89 | 0.51 | 55 | 60% | 29.6 |
+| 2 | Bootstrap (IID) | 55 | **76** | 84 | 0.50 | 54 | 54% | 30.7 |
+| 3 | Block bootstrap | 49 | **73** | 81 | 0.51 | 53 | 47% | 31.5 |
+| 4 | Shipped engine (forecast.js) _(shipped)_ | 57 | **82** | 90 | 0.55 | 57 | — | 32.1 |
+| 5 | GBM (normal) | 48 | **72** | 80 | 0.53 | 56 | 50% | 32.4 |
+| 6 | GARCH(1,1)-lite | 47 | **73** | 82 | 0.54 | 56 | 49% | 32.6 |
+| 7 | GBM + Student-t | 48 | **72** | 80 | 0.53 | 56 | 49% | 32.9 |
+| 8 | EWMA vol, zero drift (t) | 57 | **73** | 80 | 0.45 | 60 | 52% | 42.4 |
+| 9 | Momentum | 38 | **64** | 76 | 0.50 | 47 | 51% | 50.8 |
+| 10 | Mean-reversion (OU) | 47 | **63** | 69 | 0.43 | 49 | 43% | 65.0 |
 
-## Winner consistency — `momentum` per coin (cov80 / PIT / dir / score)
+## Winner consistency — `live_engine` per coin (cov80 / PIT / dir / score)
 
 | Coin | 7d | 14d | 30d |
 |---|---|---|---|
-| BTC | 74% / 0.48 / 42% / 24.8 | 69% / 0.46 / 41% / 42.1 | 61% / 0.44 / 46% / 56 |
-| ETH | 80% / 0.48 / 50% / 3.1 | 84% / 0.45 / 47% / 27.6 | 72% / 0.43 / 59% / 29.4 |
-| SOL | 78% / 0.48 / 46% / 10.1 | 78% / 0.46 / 53% / 18.4 | 70% / 0.45 / 54% / 27.8 |
-| BNB | 72% / 0.49 / 47% / 16.9 | 73% / 0.47 / 42% / 27.8 | 58% / 0.48 / 35% / 57.5 |
-| XRP | 80% / 0.49 / 36% / 12.4 | 80% / 0.48 / 47% / 11.2 | 74% / 0.47 / 52% / 18.6 |
-| SUI | 78% / 0.51 / 44% / 15.2 | 69% / 0.5 / 45% / 27 | 72% / 0.49 / 59% / 21.2 |
-| AVAX | 86% / 0.48 / 42% / 11.2 | 71% / 0.44 / 49% / 31.9 | 70% / 0.48 / 54% / 30.9 |
-| LINK | 86% / 0.48 / 38% / 15.5 | 80% / 0.47 / 51% / 17.6 | 74% / 0.46 / 59% / 19.7 |
-| INJ | 82% / 0.5 / 50% / 12.5 | 82% / 0.5 / 55% / 17.5 | 76% / 0.53 / 70% / 27.6 |
-| OP | 76% / 0.49 / 50% / 17.6 | 78% / 0.48 / 59% / 16.4 | 65% / 0.49 / 61% / 42.4 |
-| ARB | 78% / 0.47 / 50% / 21.2 | 76% / 0.46 / 57% / 22.4 | 65% / 0.46 / 67% / 37.2 |
-| DOGE | 84% / 0.51 / 42% / 15.1 | 78% / 0.48 / 51% / 16.9 | 76% / 0.51 / 54% / 12.4 |
-| TIA | 76% / 0.5 / 50% / 10.1 | 78% / 0.49 / 57% / 16.2 | 70% / 0.5 / 54% / 31.1 |
-| APT | 80% / 0.47 / 56% / 8.2 | 78% / 0.44 / 55% / 21.3 | 61% / 0.45 / 54% / 63.6 |
+| BTC | 84% / 0.48 / 50% / 10 | 77% / 0.46 / 52% / 20.5 | 73% / 0.51 / 43% / 19.5 |
+| ETH | 78% / 0.47 / 57% / 21.6 | 79% / 0.44 / 62% / 23.3 | 79% / 0.49 / 48% / 14 |
+| SOL | 77% / 0.47 / 55% / 25.2 | 77% / 0.46 / 55% / 22.8 | 81% / 0.5 / 68% / 19.3 |
+| BNB | 84% / 0.5 / 50% / 14.4 | 80% / 0.5 / 54% / 5.9 | 83% / 0.53 / 52% / 30.4 |
+| XRP | 85% / 0.48 / 59% / 24.1 | 85% / 0.47 / 65% / 24.1 | 94% / 0.51 / 70% / 39.5 |
+| SUI | 80% / 0.48 / 54% / 6.4 | 77% / 0.49 / 56% / 8 | 89% / 0.54 / 56% / 30 |
+| AVAX | 81% / 0.47 / 54% / 18 | 83% / 0.46 / 59% / 20.3 | 87% / 0.51 / 63% / 28.9 |
+| LINK | 80% / 0.48 / 51% / 12.5 | 83% / 0.48 / 58% / 9 | 90% / 0.54 / 49% / 33.2 |
+| INJ | 80% / 0.59 / 47% / 27.8 | 70% / 0.62 / 44% / 44.8 | 68% / 0.71 / 40% / 70.5 |
+| OP | 76% / 0.48 / 59% / 19.5 | 72% / 0.47 / 68% / 20.2 | 78% / 0.53 / 67% / 16.7 |
+| ARB | 69% / 0.47 / 62% / 31 | 72% / 0.46 / 69% / 25.7 | 63% / 0.54 / 68% / 36.7 |
+| DOGE | 86% / 0.51 / 51% / 23.6 | 77% / 0.49 / 59% / 10.1 | 92% / 0.56 / 52% / 42.8 |
+| TIA | 78% / 0.52 / 61% / 8.6 | 82% / 0.55 / 56% / 18.9 | 87% / 0.64 / 49% / 47.4 |
+| APT | 78% / 0.48 / 54% / 12.4 | 80% / 0.48 / 66% / 16.7 | 79% / 0.54 / 71% / 20.3 |
 
-Coins: BTC (coinbase), ETH (coinbase), SOL (coinbase), BNB (coinbase), XRP (coinbase), SUI (coinbase), AVAX (coinbase), LINK (coinbase), INJ (coinbase), OP (coinbase), ARB (coinbase), DOGE (coinbase), TIA (coinbase), APT (coinbase)
+Coins: BTC (binance), ETH (binance), SOL (binance), BNB (binance), XRP (binance), SUI (binance), AVAX (binance), LINK (binance), INJ (binance), OP (binance), ARB (binance), DOGE (binance), TIA (binance), APT (binance)

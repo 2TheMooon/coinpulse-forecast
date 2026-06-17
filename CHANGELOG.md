@@ -18,6 +18,7 @@ tune and improve the forecasting model.
 
 - 2026-06-14 auto-tune: volPremium 1.1→1.05, driftDamp 0.55→0.7 (calibration error 24.77→24.19, cov80→78.9%)
 - 2026-06-14 AI daily: no change — calibration within tolerance (7d 82%/14d 79%/30d 83%); auto-tuner already adjusted volPremium and driftDamp today
+- 2026-06-17 AI daily: no change — calibration within tolerance (7d 80%/14d 78%/30d 82%); 7d now perfect at target; live_engine #1 overall (score 23.2)
 
 - 2026-06-13 auto-tune: volPremium 1→1.1, driftDamp 0.55→0.55 (calibration error 23.01→21.88, cov80→80%)
 - 2026-06-13 AI daily: no change — auto-tuner already raised volPremium 1.0→1.1 today; awaiting next report to evaluate effect (cov80 currently 78%/76%/77% at 7d/14d/30d)
