@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T12:29:45.563Z",
+  "generatedAt": "2026-06-19T12:51:39.780Z",
   "short": {
     "maxDays": 7,
     "strategy": "momentum"
@@ -10,6 +10,6 @@
   },
   "long": {
     "maxDays": 9999,
-    "strategy": "momentum"
+    "strategy": "live_engine"
   }
 }
