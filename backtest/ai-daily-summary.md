@@ -1,10 +1,10 @@
-# AI Daily Summary — 2026-06-17
+# AI Daily Summary — 2026-06-20
 
-**Calibration**: 7d cov80=80% · 14d cov80=78% · 30d cov80=82% (target 80%)
-**meanPIT**: 7d=0.49 · 14d=0.49 · 30d=0.55
-**Tournament**: KEEP `live_engine` (score 23.2 vs ensemble 27.5)
+**Calibration**: 7d cov80=81% · 14d cov80=79% · 30d cov80=84% (target 80%)
+**meanPIT**: 7d=0.50 · 14d=0.50 · 30d=0.56
+**Tournament**: KEEP `live_engine` (score 24.1 vs ensemble 25.7)
 
-**Action**: No code change. All horizons within tolerance. 7d is now perfect
-at the 80% target (improved from 82% on June 14). 30d meanPIT=0.55 is a
-slight upward bias but cov80=82% is acceptable. INJ remains an outlier
-(30d cov80=68%, PIT=0.71) — single-coin effect, not systemic.
+**Action**: No code change. Calibration within tolerance across all horizons.
+Auto-tuner already adjusted today: volPremium 1.05→1.0, driftDamp 0.7→0.55.
+7d and 14d are near-perfect; 30d slightly over-covered (84%) but the lowered
+volPremium should tighten bands. INJ remains a per-coin outlier (30d PIT=0.73).
