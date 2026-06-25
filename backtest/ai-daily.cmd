@@ -28,8 +28,16 @@ where claude >nul 2>&1 || set CLAUDE_EXE=
 if "%CLAUDE_EXE%"=="" (
   echo claude CLI not found on PATH - skipping AI layer >> "%LOG%"
 ) else (
-  claude --model opus -p "Read backtest/ai-improve-prompt.md and follow it exactly. You are the autonomous daily maintainer of this CoinPulse Forecast FORK. Use maximum reasoning effort. Be rigorous but conservative, verify every change with backtest/selftest.js, and keep the tool fully working." --dangerously-skip-permissions < nul >> "%LOG%" 2>&1
+  claude --model opus -p "Read backtest/ai-improve-prompt.md and follow it exactly. You are the autonomous daily maintainer of this CoinPulse Forecast FORK. Use maximum reasoning effort. Be rigorous but conservative, verify every change with backtest/selftest.js, and keep the tool fully working." --dangerously-skip-permissions < nul > "%TEMP%\cp-ai-out.txt" 2>&1
+  type "%TEMP%\cp-ai-out.txt" >> "%LOG%"
   echo AI layer exit code: %ERRORLEVEL% >> "%LOG%"
+  REM --- detect an expired Claude CLI token (401) so it is caught immediately ---
+  findstr /C:"authentication_error" /C:"Invalid authentication" "%TEMP%\cp-ai-out.txt" >nul 2>&1 && (
+    echo !!!!! AI-AUTH-FAILED: claude CLI token expired - run 'claude' then /login to refresh >> "%LOG%"
+    echo AI-AUTH-FAILED %date% %time% - fix: run 'claude' then /login > "backtest\ai-auth-status.txt"
+  ) || (
+    if exist "backtest\ai-auth-status.txt" del "backtest\ai-auth-status.txt" >nul 2>&1
+  )
 )
 
 REM --- 3) guarantee a clean, safe committed state ---
