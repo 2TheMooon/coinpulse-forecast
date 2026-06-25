@@ -16,6 +16,8 @@ tune and improve the forecasting model.
 
 <!-- Daily calibration runs append below this line -->
 
+- 2026-06-25 AI daily: no change — calibration within tolerance (7d 78%/14d 78%/30d 81%); live_engine #1 overall (score 22.4), tournament KEEP; 30d PIT=0.56 stable upward bias (not worsening); INJ remains idiosyncratic per-coin outlier (30d PIT=0.74)
+
 - 2026-06-24 auto-tune: volPremium 1→0.95, driftDamp 0.55→0.55 (calibration error 23.2→22.49, cov80→79.3%)
 
 - 2026-06-20 auto-tune: volPremium 1.05→1, driftDamp 0.7→0.55 (calibration error 24.35→23.23, cov80→79.4%)

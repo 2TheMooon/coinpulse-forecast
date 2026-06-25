@@ -1,11 +1,13 @@
-# AI Daily Summary — 2026-06-21
+# AI Daily Summary — 2026-06-25
 
-**Calibration**: 7d cov80=79% · 14d cov80=77% · 30d cov80=82% (target 80%)
-**meanPIT**: 7d=0.51 · 14d=0.51 · 30d=0.56
-**Tournament**: KEEP `live_engine` (score 23.1 vs ensemble 23.3)
+**Calibration**: 7d cov80=78% · 14d cov80=78% · 30d cov80=81% (target 80%)
+**meanPIT**: 7d=0.50 · 14d=0.52 · 30d=0.56
+**Tournament**: KEEP `live_engine` (#1 overall, score 22.4)
 
-**Action**: No code change. Calibration within tolerance across all horizons.
-7d near-perfect; 14d 3pp under but stable; 30d 2pp over with PIT=0.56
-(persistent mild upward bias, not worsening). INJ remains a per-coin outlier
-(30d PIT=0.73, cov80=67%). Tuner evaluated volPremium 1.05 but improvement
-too small to apply (0.25pp).
+**Action**: No code change. All horizons within tolerance; cov80 is within
+normal sampling noise of 80% across ~700–1000 windows. 30d meanPIT=0.56 is the
+same mild upward bias seen on prior days (stable, not worsening) — "fixing" it
+would require adding upward drift, i.e. overfitting to a rising backtest window.
+INJ stays an idiosyncratic per-coin outlier (30d PIT=0.74, cov80=67%); per-coin
+special-casing would be risky overfitting. Auto-tuner already set volPremium
+1→0.95 yesterday. selftest + require-forecast both pass (exit 0).

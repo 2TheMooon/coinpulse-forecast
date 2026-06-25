@@ -5,7 +5,7 @@
     "driftDamp": 0.55,
     "tDof": 5
   },
-  "baselineError": 22.01,
+  "baselineError": 21.97,
   "best": {
     "volPremium": 1,
     "driftDamp": 0.55,
@@ -13,7 +13,7 @@
     "cov80": 80.3,
     "meanPit": 0.525
   },
-  "improvement": 0.32,
+  "improvement": 0.29,
   "applied": false,
   "coinsUsed": 14
 }
