@@ -32,9 +32,11 @@ if "%CLAUDE_EXE%"=="" (
   type "%TEMP%\cp-ai-out.txt" >> "%LOG%"
   echo AI layer exit code: %ERRORLEVEL% >> "%LOG%"
   REM --- detect an expired Claude CLI token (401) so it is caught immediately ---
-  findstr /C:"authentication_error" /C:"Invalid authentication" "%TEMP%\cp-ai-out.txt" >nul 2>&1 && (
+  findstr /C:"authentication_error" /C:"Invalid authentication" /C:"Not logged in" "%TEMP%\cp-ai-out.txt" >nul 2>&1 && (
     echo !!!!! AI-AUTH-FAILED: claude CLI token expired - run 'claude' then /login to refresh >> "%LOG%"
     echo AI-AUTH-FAILED %date% %time% - fix: run 'claude' then /login > "backtest\ai-auth-status.txt"
+    REM desktop popup (async, stays until dismissed) — only fires when YOU need to act
+    start "" wscript "%~dp0alert.vbs" "CoinPulse: Claude login expired. Open PowerShell, run 'claude', log in again - this revives the daily AI maintainer." 0
   ) || (
     if exist "backtest\ai-auth-status.txt" del "backtest\ai-auth-status.txt" >nul 2>&1
   )
