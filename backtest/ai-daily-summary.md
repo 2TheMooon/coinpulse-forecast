@@ -1,15 +1,17 @@
-# AI Daily Summary — 2026-06-27
+# AI Daily Summary — 2026-06-28
 
-**Calibration**: 7d cov80=78% · 14d cov80=79% · 30d cov80=81% (target 80%)
-**meanPIT**: 7d=0.51 · 14d=0.52 · 30d=0.56
-**Tournament**: KEEP `live_engine` (#1 overall, score 22.3; ties block_boot)
+**Calibration**: 7d cov80=78% · 14d cov80=80% · 30d cov80=83% (target 80%)
+**meanPIT**: 7d=0.50 · 14d=0.53 · 30d=0.56
+**Tournament**: KEEP `live_engine` (score 23.2, effectively tied with top cluster ~22.9)
 
-**Action**: No code change. All three horizons are within sampling noise of the
-80% target across ~700–1000 windows, and aggregate meanPIT is near 0.50. The
-deterministic auto-tuner already made today's meaningful adjustment — driftDamp
-0.55→0.4 (calibration error 21.81→21.02, cov80 79.2%, PIT 0.511) — so stacking
-an AI drift/vol change on top would be unjustified and risky. The residual 30d
-upward PIT bias (0.56) and the INJ/TIA per-coin outliers (INJ 30d PIT=0.74) are
-the same stable, non-worsening artifacts of a rising backtest window; correcting
-them would mean adding upward drift or per-coin special-casing, i.e. overfitting.
-selftest passes 3/3, `require('./forecast.js')` exits 0.
+**Action**: No code change. cov80 is on target across all three horizons and
+aggregate meanPIT is near 0.50. The only mild residual is the long-standing 30d
+meanPIT upward bias (~0.56) — stable for weeks and not worsening. The
+deterministic auto-tuner already addressed it **today** by raising `driftDamp`
+0.4→0.55 (calibration error 23.4→22.71, cov80→80.3%, aggregate PIT→0.526), which
+moves the 30d median upward in the correct direction. Stacking an AI drift change
+on top of a same-day grid-search adjustment — one that has oscillated
+0.55→0.4→0.55 over three days — would conflict with the deterministic layer.
+INJ/TIA remain idiosyncratic per-coin outliers; special-casing them risks
+overfitting. Conservative no-op is the correct call. Verified:
+`node backtest/selftest.js` 3/3 and `require('./forecast.js')` both exit 0.

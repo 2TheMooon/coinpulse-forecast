@@ -16,6 +16,10 @@ tune and improve the forecasting model.
 
 <!-- Daily calibration runs append below this line -->
 
+- 2026-06-28 auto-tune: volPremium 0.95→0.95, driftDamp 0.4→0.55 (calibration error 23.4→22.71, cov80→80.3%)
+
+- 2026-06-28 AI daily: no change — calibration within tolerance (7d 78%/14d 80%/30d 83%); live_engine score 23.2, effectively tied with top cluster (~22.9), tournament KEEP; auto-tuner already raised driftDamp 0.4→0.55 today (error 23.4→22.71, PIT 0.526) which directly addresses the stable 30d PIT=0.56 upward bias, so no further drift change is justified; INJ/TIA remain idiosyncratic per-coin outliers (overfitting risk to special-case). selftest 3/3 + require both exit 0
+
 - 2026-06-27 auto-tune: volPremium 0.95→0.95, driftDamp 0.55→0.4 (calibration error 21.81→21.02, cov80→79.2%)
 
 - 2026-06-27 AI daily: no change — calibration within tolerance (7d 78%/14d 79%/30d 81%); live_engine #1 overall (score 22.3), tournament KEEP; auto-tuner already cut driftDamp 0.55→0.4 today (error 21.81→21.02, PIT 0.51) so no further drift change is justified; 30d PIT=0.56 stable upward bias, INJ/TIA remain idiosyncratic per-coin outliers (overfitting risk to special-case). selftest 3/3 + require both exit 0
