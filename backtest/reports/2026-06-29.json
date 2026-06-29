@@ -1,7 +1,7 @@
 {
   "date": "2026-06-29",
-  "generatedAt": "2026-06-29T12:51:40.959Z",
-  "durationMs": 16245,
+  "generatedAt": "2026-06-29T13:11:10.822Z",
+  "durationMs": 13569,
   "config": {
     "horizons": [
       7,
@@ -23,73 +23,73 @@
   "coins": [
     {
       "symbol": "BTC",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     },
     {
       "symbol": "ETH",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     },
     {
       "symbol": "SOL",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     },
     {
       "symbol": "BNB",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 251
     },
     {
       "symbol": "XRP",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     },
     {
       "symbol": "SUI",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     },
     {
       "symbol": "AVAX",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     },
     {
       "symbol": "LINK",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     },
     {
       "symbol": "INJ",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     },
     {
       "symbol": "OP",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     },
     {
       "symbol": "ARB",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     },
     {
       "symbol": "DOGE",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     },
     {
       "symbol": "TIA",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     },
     {
       "symbol": "APT",
-      "source": "binance",
-      "candles": 200
+      "source": "coinbase",
+      "candles": 350
     }
   ],
   "strategies": [
@@ -152,83 +152,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 700,
-        "cov50": 53.4,
-        "cov80": 80.7,
-        "cov90": 88.3,
-        "meanPit": 0.497,
-        "dirAccuracy": 59.4,
-        "sharpness": 0.237,
-        "score": 16
-      },
-      {
-        "key": "live_engine",
-        "label": "Shipped engine (forecast.js)",
-        "baseline": true,
-        "coins": 14,
-        "windows": 1036,
-        "cov50": 53.5,
-        "cov80": 79.2,
-        "cov90": 86.7,
-        "meanPit": 0.509,
-        "dirAccuracy": 55.2,
-        "sharpness": null,
-        "score": 16.6
-      },
-      {
-        "key": "momentum",
-        "label": "Momentum",
-        "baseline": false,
-        "coins": 14,
-        "windows": 700,
-        "cov50": 50.7,
-        "cov80": 78.3,
-        "cov90": 87,
-        "meanPit": 0.477,
-        "dirAccuracy": 54.3,
-        "sharpness": 0.246,
-        "score": 17.6
-      },
-      {
-        "key": "garch",
-        "label": "GARCH(1,1)-lite",
-        "baseline": false,
-        "coins": 14,
-        "windows": 700,
-        "cov50": 53.9,
-        "cov80": 78.7,
-        "cov90": 88.4,
-        "meanPit": 0.49,
-        "dirAccuracy": 57.6,
-        "sharpness": 0.233,
-        "score": 18.8
-      },
-      {
-        "key": "ensemble",
-        "label": "Ensemble (GBM-t + bootstraps)",
-        "baseline": false,
-        "coins": 14,
-        "windows": 700,
-        "cov50": 55.4,
-        "cov80": 81.9,
-        "cov90": 90,
-        "meanPit": 0.479,
-        "dirAccuracy": 59.3,
-        "sharpness": 0.246,
-        "score": 19.8
-      },
-      {
-        "key": "block_boot",
-        "label": "Block bootstrap",
-        "baseline": false,
-        "coins": 14,
-        "windows": 700,
-        "cov50": 54.6,
-        "cov80": 83.1,
-        "cov90": 89.3,
-        "meanPit": 0.464,
-        "dirAccuracy": 53.6,
-        "sharpness": 0.244,
-        "score": 21.7
+        "cov50": 52.7,
+        "cov80": 79.1,
+        "cov90": 89.1,
+        "meanPit": 0.495,
+        "dirAccuracy": 53.9,
+        "sharpness": 0.263,
+        "score": 13.2
       },
       {
         "key": "gbm_normal",
@@ -236,13 +166,111 @@
         "baseline": false,
         "coins": 14,
         "windows": 700,
-        "cov50": 57.4,
+        "cov50": 54.3,
         "cov80": 80.6,
-        "cov90": 87.1,
+        "cov90": 90.7,
+        "meanPit": 0.486,
+        "dirAccuracy": 55,
+        "sharpness": 0.273,
+        "score": 13.5
+      },
+      {
+        "key": "momentum",
+        "label": "Momentum",
+        "baseline": false,
+        "coins": 14,
+        "windows": 700,
+        "cov50": 45.6,
+        "cov80": 76.3,
+        "cov90": 87.7,
+        "meanPit": 0.492,
+        "dirAccuracy": 47.6,
+        "sharpness": 0.27,
+        "score": 14.3
+      },
+      {
+        "key": "garch",
+        "label": "GARCH(1,1)-lite",
+        "baseline": false,
+        "coins": 14,
+        "windows": 700,
+        "cov50": 54.1,
+        "cov80": 79.9,
+        "cov90": 89.9,
         "meanPit": 0.485,
-        "dirAccuracy": 57.7,
-        "sharpness": 0.246,
-        "score": 22.3
+        "dirAccuracy": 54,
+        "sharpness": 0.259,
+        "score": 15.4
+      },
+      {
+        "key": "ewma_t_zero",
+        "label": "EWMA vol, zero drift (t)",
+        "baseline": false,
+        "coins": 14,
+        "windows": 700,
+        "cov50": 53.4,
+        "cov80": 80,
+        "cov90": 89.7,
+        "meanPit": 0.465,
+        "dirAccuracy": 45.4,
+        "sharpness": 0.267,
+        "score": 16.7
+      },
+      {
+        "key": "live_engine",
+        "label": "Shipped engine (forecast.js)",
+        "baseline": true,
+        "coins": 14,
+        "windows": 1042,
+        "cov50": 56.9,
+        "cov80": 78.2,
+        "cov90": 86.5,
+        "meanPit": 0.487,
+        "dirAccuracy": 57.5,
+        "sharpness": null,
+        "score": 18.5
+      },
+      {
+        "key": "ensemble",
+        "label": "Ensemble (GBM-t + bootstraps)",
+        "baseline": false,
+        "coins": 14,
+        "windows": 700,
+        "cov50": 56.1,
+        "cov80": 83,
+        "cov90": 92,
+        "meanPit": 0.477,
+        "dirAccuracy": 56.7,
+        "sharpness": 0.272,
+        "score": 20.5
+      },
+      {
+        "key": "block_boot",
+        "label": "Block bootstrap",
+        "baseline": false,
+        "coins": 14,
+        "windows": 700,
+        "cov50": 55.1,
+        "cov80": 82.7,
+        "cov90": 90.9,
+        "meanPit": 0.468,
+        "dirAccuracy": 54.3,
+        "sharpness": 0.264,
+        "score": 20.5
+      },
+      {
+        "key": "ou",
+        "label": "Mean-reversion (OU)",
+        "baseline": false,
+        "coins": 14,
+        "windows": 700,
+        "cov50": 53.1,
+        "cov80": 78.6,
+        "cov90": 87,
+        "meanPit": 0.435,
+        "dirAccuracy": 48.4,
+        "sharpness": 0.275,
+        "score": 26.1
       },
       {
         "key": "bootstrap_iid",
@@ -250,12 +278,98 @@
         "baseline": false,
         "coins": 14,
         "windows": 700,
-        "cov50": 58.9,
-        "cov80": 84.3,
-        "cov90": 89.6,
-        "meanPit": 0.477,
-        "dirAccuracy": 56.6,
-        "sharpness": 0.259,
+        "cov50": 58.7,
+        "cov80": 85.6,
+        "cov90": 92.7,
+        "meanPit": 0.468,
+        "dirAccuracy": 57.9,
+        "sharpness": 0.285,
+        "score": 26.9
+      }
+    ],
+    "14": [
+      {
+        "key": "momentum",
+        "label": "Momentum",
+        "baseline": false,
+        "coins": 14,
+        "windows": 685,
+        "cov50": 44.2,
+        "cov80": 78.1,
+        "cov90": 88.5,
+        "meanPit": 0.483,
+        "dirAccuracy": 52.7,
+        "sharpness": 0.378,
+        "score": 16.2
+      },
+      {
+        "key": "gbm_t",
+        "label": "GBM + Student-t",
+        "baseline": false,
+        "coins": 14,
+        "windows": 685,
+        "cov50": 49.3,
+        "cov80": 79.6,
+        "cov90": 89.5,
+        "meanPit": 0.465,
+        "dirAccuracy": 61.2,
+        "sharpness": 0.37,
+        "score": 16.6
+      },
+      {
+        "key": "live_engine",
+        "label": "Shipped engine (forecast.js)",
+        "baseline": true,
+        "coins": 14,
+        "windows": 1013,
+        "cov50": 53.6,
+        "cov80": 80.8,
+        "cov90": 87.2,
+        "meanPit": 0.469,
+        "dirAccuracy": 61.5,
+        "sharpness": null,
+        "score": 17.5
+      },
+      {
+        "key": "gbm_normal",
+        "label": "GBM (normal)",
+        "baseline": false,
+        "coins": 14,
+        "windows": 685,
+        "cov50": 52,
+        "cov80": 83.5,
+        "cov90": 90.8,
+        "meanPit": 0.465,
+        "dirAccuracy": 62.8,
+        "sharpness": 0.385,
+        "score": 19.2
+      },
+      {
+        "key": "garch",
+        "label": "GARCH(1,1)-lite",
+        "baseline": false,
+        "coins": 14,
+        "windows": 685,
+        "cov50": 48.6,
+        "cov80": 82.6,
+        "cov90": 91.1,
+        "meanPit": 0.466,
+        "dirAccuracy": 60.4,
+        "sharpness": 0.37,
+        "score": 20.9
+      },
+      {
+        "key": "ensemble",
+        "label": "Ensemble (GBM-t + bootstraps)",
+        "baseline": false,
+        "coins": 14,
+        "windows": 685,
+        "cov50": 51.1,
+        "cov80": 82.8,
+        "cov90": 91.5,
+        "meanPit": 0.446,
+        "dirAccuracy": 59.4,
+        "sharpness": 0.382,
         "score": 24.7
       },
       {
@@ -263,685 +377,571 @@
         "label": "EWMA vol, zero drift (t)",
         "baseline": false,
         "coins": 14,
-        "windows": 700,
-        "cov50": 55.6,
-        "cov80": 80.6,
-        "cov90": 87.9,
-        "meanPit": 0.452,
-        "dirAccuracy": 59.7,
-        "sharpness": 0.241,
-        "score": 26.5
-      },
-      {
-        "key": "ou",
-        "label": "Mean-reversion (OU)",
-        "baseline": false,
-        "coins": 14,
-        "windows": 700,
-        "cov50": 57.1,
-        "cov80": 78,
-        "cov90": 85.3,
-        "meanPit": 0.462,
-        "dirAccuracy": 47.4,
-        "sharpness": 0.247,
-        "score": 31
-      }
-    ],
-    "14": [
-      {
-        "key": "live_engine",
-        "label": "Shipped engine (forecast.js)",
-        "baseline": true,
-        "coins": 14,
-        "windows": 994,
+        "windows": 685,
         "cov50": 52.3,
-        "cov80": 80.1,
-        "cov90": 87.6,
-        "meanPit": 0.523,
-        "dirAccuracy": 57.7,
-        "sharpness": null,
-        "score": 17.1
-      },
-      {
-        "key": "momentum",
-        "label": "Momentum",
-        "baseline": false,
-        "coins": 14,
-        "windows": 658,
-        "cov50": 46.7,
-        "cov80": 75.1,
-        "cov90": 85.6,
-        "meanPit": 0.503,
-        "dirAccuracy": 55,
-        "sharpness": 0.346,
-        "score": 19.8
-      },
-      {
-        "key": "garch",
-        "label": "GARCH(1,1)-lite",
-        "baseline": false,
-        "coins": 14,
-        "windows": 658,
-        "cov50": 52.6,
-        "cov80": 79.9,
-        "cov90": 88.3,
-        "meanPit": 0.513,
-        "dirAccuracy": 60.5,
-        "sharpness": 0.332,
-        "score": 19.9
-      },
-      {
-        "key": "gbm_normal",
-        "label": "GBM (normal)",
-        "baseline": false,
-        "coins": 14,
-        "windows": 658,
-        "cov50": 54,
-        "cov80": 79.8,
-        "cov90": 87.7,
-        "meanPit": 0.512,
-        "dirAccuracy": 60.6,
-        "sharpness": 0.346,
-        "score": 19.9
-      },
-      {
-        "key": "gbm_t",
-        "label": "GBM + Student-t",
-        "baseline": false,
-        "coins": 14,
-        "windows": 658,
-        "cov50": 52.9,
-        "cov80": 78.1,
-        "cov90": 85.9,
-        "meanPit": 0.509,
-        "dirAccuracy": 60.5,
-        "sharpness": 0.334,
-        "score": 21.6
-      },
-      {
-        "key": "ensemble",
-        "label": "Ensemble (GBM-t + bootstraps)",
-        "baseline": false,
-        "coins": 14,
-        "windows": 658,
-        "cov50": 54.3,
-        "cov80": 82.5,
-        "cov90": 90.1,
-        "meanPit": 0.496,
-        "dirAccuracy": 59.6,
-        "sharpness": 0.346,
-        "score": 21.6
+        "cov80": 81,
+        "cov90": 89.1,
+        "meanPit": 0.425,
+        "dirAccuracy": 57.2,
+        "sharpness": 0.379,
+        "score": 26.1
       },
       {
         "key": "block_boot",
         "label": "Block bootstrap",
         "baseline": false,
         "coins": 14,
-        "windows": 658,
-        "cov50": 53,
-        "cov80": 82.4,
-        "cov90": 90,
-        "meanPit": 0.481,
-        "dirAccuracy": 56.8,
-        "sharpness": 0.339,
-        "score": 23.9
+        "windows": 685,
+        "cov50": 48.9,
+        "cov80": 82.2,
+        "cov90": 91.1,
+        "meanPit": 0.436,
+        "dirAccuracy": 57.5,
+        "sharpness": 0.37,
+        "score": 28.1
       },
       {
         "key": "bootstrap_iid",
         "label": "Bootstrap (IID)",
         "baseline": false,
         "coins": 14,
-        "windows": 658,
-        "cov50": 59.1,
-        "cov80": 84.8,
-        "cov90": 90.3,
-        "meanPit": 0.486,
-        "dirAccuracy": 59.7,
-        "sharpness": 0.37,
-        "score": 28.7
-      },
-      {
-        "key": "ewma_t_zero",
-        "label": "EWMA vol, zero drift (t)",
-        "baseline": false,
-        "coins": 14,
-        "windows": 658,
-        "cov50": 55.8,
-        "cov80": 78.6,
-        "cov90": 86.5,
-        "meanPit": 0.445,
-        "dirAccuracy": 57.9,
-        "sharpness": 0.345,
-        "score": 29.2
+        "windows": 685,
+        "cov50": 54.6,
+        "cov80": 85.8,
+        "cov90": 93.6,
+        "meanPit": 0.441,
+        "dirAccuracy": 57.5,
+        "sharpness": 0.413,
+        "score": 30.1
       },
       {
         "key": "ou",
         "label": "Mean-reversion (OU)",
         "baseline": false,
         "coins": 14,
-        "windows": 658,
-        "cov50": 50.9,
-        "cov80": 78,
-        "cov90": 82.5,
-        "meanPit": 0.464,
-        "dirAccuracy": 50.6,
-        "sharpness": 0.328,
-        "score": 32.7
+        "windows": 685,
+        "cov50": 44.2,
+        "cov80": 72.6,
+        "cov90": 81.6,
+        "meanPit": 0.402,
+        "dirAccuracy": 46.7,
+        "sharpness": 0.369,
+        "score": 43.6
       }
     ],
     "30": [
       {
-        "key": "block_boot",
-        "label": "Block bootstrap",
-        "baseline": false,
-        "coins": 14,
-        "windows": 882,
-        "cov50": 50.2,
-        "cov80": 76.6,
-        "cov90": 87.2,
-        "meanPit": 0.525,
-        "dirAccuracy": 57,
-        "sharpness": 0.488,
-        "score": 28.5
-      },
-      {
-        "key": "bootstrap_iid",
-        "label": "Bootstrap (IID)",
-        "baseline": false,
-        "coins": 14,
-        "windows": 882,
-        "cov50": 55.4,
-        "cov80": 80.6,
-        "cov90": 90.1,
-        "meanPit": 0.519,
-        "dirAccuracy": 56.8,
-        "sharpness": 0.526,
-        "score": 30.4
-      },
-      {
         "key": "live_engine",
         "label": "Shipped engine (forecast.js)",
         "baseline": true,
         "coins": 14,
-        "windows": 882,
-        "cov50": 54.2,
-        "cov80": 80.8,
-        "cov90": 88.9,
-        "meanPit": 0.557,
-        "dirAccuracy": 58.2,
+        "windows": 985,
+        "cov50": 56.4,
+        "cov80": 81.3,
+        "cov90": 88.2,
+        "meanPit": 0.456,
+        "dirAccuracy": 66.1,
         "sharpness": null,
-        "score": 31.3
-      },
-      {
-        "key": "ensemble",
-        "label": "Ensemble (GBM-t + bootstraps)",
-        "baseline": false,
-        "coins": 14,
-        "windows": 882,
-        "cov50": 58.5,
-        "cov80": 84,
-        "cov90": 93.1,
-        "meanPit": 0.528,
-        "dirAccuracy": 57.8,
-        "sharpness": 0.595,
-        "score": 31.7
+        "score": 28.3
       },
       {
         "key": "garch",
         "label": "GARCH(1,1)-lite",
         "baseline": false,
         "coins": 14,
-        "windows": 882,
-        "cov50": 47.3,
-        "cov80": 76.4,
-        "cov90": 87.3,
-        "meanPit": 0.554,
-        "dirAccuracy": 58.2,
-        "sharpness": 0.476,
-        "score": 32.1
+        "windows": 657,
+        "cov50": 50.8,
+        "cov80": 75.6,
+        "cov90": 86.8,
+        "meanPit": 0.435,
+        "dirAccuracy": 66.5,
+        "sharpness": 0.533,
+        "score": 33
       },
       {
         "key": "gbm_normal",
         "label": "GBM (normal)",
         "baseline": false,
         "coins": 14,
-        "windows": 882,
-        "cov50": 47.3,
-        "cov80": 73.9,
-        "cov90": 82.3,
-        "meanPit": 0.548,
-        "dirAccuracy": 58.3,
-        "sharpness": 0.479,
-        "score": 32.4
+        "windows": 657,
+        "cov50": 49.9,
+        "cov80": 73.4,
+        "cov90": 82.8,
+        "meanPit": 0.436,
+        "dirAccuracy": 67.7,
+        "sharpness": 0.536,
+        "score": 33
       },
       {
         "key": "gbm_t",
         "label": "GBM + Student-t",
         "baseline": false,
         "coins": 14,
-        "windows": 882,
-        "cov50": 47.7,
-        "cov80": 73.6,
-        "cov90": 81.6,
-        "meanPit": 0.546,
-        "dirAccuracy": 58.2,
-        "sharpness": 0.471,
-        "score": 33.8
+        "windows": 657,
+        "cov50": 51.6,
+        "cov80": 73.4,
+        "cov90": 81.4,
+        "meanPit": 0.431,
+        "dirAccuracy": 66.8,
+        "sharpness": 0.532,
+        "score": 34.1
       },
       {
-        "key": "ewma_t_zero",
-        "label": "EWMA vol, zero drift (t)",
+        "key": "ensemble",
+        "label": "Ensemble (GBM-t + bootstraps)",
         "baseline": false,
         "coins": 14,
-        "windows": 882,
-        "cov50": 57.6,
-        "cov80": 74.6,
-        "cov90": 81.9,
-        "meanPit": 0.454,
-        "dirAccuracy": 55.1,
-        "sharpness": 0.507,
-        "score": 40.7
+        "windows": 657,
+        "cov50": 56.9,
+        "cov80": 82.6,
+        "cov90": 91.6,
+        "meanPit": 0.418,
+        "dirAccuracy": 63.6,
+        "sharpness": 0.655,
+        "score": 34.4
+      },
+      {
+        "key": "bootstrap_iid",
+        "label": "Bootstrap (IID)",
+        "baseline": false,
+        "coins": 14,
+        "windows": 657,
+        "cov50": 53.4,
+        "cov80": 81,
+        "cov90": 90.4,
+        "meanPit": 0.402,
+        "dirAccuracy": 61.2,
+        "sharpness": 0.601,
+        "score": 36.2
       },
       {
         "key": "momentum",
         "label": "Momentum",
         "baseline": false,
         "coins": 14,
-        "windows": 882,
-        "cov50": 41,
-        "cov80": 66.3,
-        "cov90": 78.9,
-        "meanPit": 0.511,
-        "dirAccuracy": 49.7,
-        "sharpness": 0.492,
-        "score": 42.2
+        "windows": 657,
+        "cov50": 41.4,
+        "cov80": 67.6,
+        "cov90": 79.1,
+        "meanPit": 0.464,
+        "dirAccuracy": 56.5,
+        "sharpness": 0.524,
+        "score": 40
+      },
+      {
+        "key": "block_boot",
+        "label": "Block bootstrap",
+        "baseline": false,
+        "coins": 14,
+        "windows": 657,
+        "cov50": 48.7,
+        "cov80": 73.2,
+        "cov90": 84.9,
+        "meanPit": 0.398,
+        "dirAccuracy": 62.3,
+        "sharpness": 0.522,
+        "score": 41.1
+      },
+      {
+        "key": "ewma_t_zero",
+        "label": "EWMA vol, zero drift (t)",
+        "baseline": false,
+        "coins": 14,
+        "windows": 657,
+        "cov50": 53.7,
+        "cov80": 73.8,
+        "cov90": 81.3,
+        "meanPit": 0.371,
+        "dirAccuracy": 66.7,
+        "sharpness": 0.558,
+        "score": 46.7
       },
       {
         "key": "ou",
         "label": "Mean-reversion (OU)",
         "baseline": false,
         "coins": 14,
-        "windows": 882,
-        "cov50": 45.9,
-        "cov80": 65.4,
-        "cov90": 73.1,
-        "meanPit": 0.471,
-        "dirAccuracy": 50.9,
-        "sharpness": 0.467,
-        "score": 54.8
+        "windows": 657,
+        "cov50": 39.1,
+        "cov80": 55.9,
+        "cov90": 65.8,
+        "meanPit": 0.341,
+        "dirAccuracy": 46.1,
+        "sharpness": 0.471,
+        "score": 91.2
       }
     ]
   },
   "overall": [
     {
-      "key": "live_engine",
-      "label": "Shipped engine (forecast.js)",
-      "baseline": true,
-      "meanScore": 21.7
-    },
-    {
-      "key": "garch",
-      "label": "GARCH(1,1)-lite",
-      "baseline": false,
-      "meanScore": 23.6
-    },
-    {
       "key": "gbm_t",
       "label": "GBM + Student-t",
       "baseline": false,
-      "meanScore": 23.8
+      "meanScore": 21.3
     },
     {
-      "key": "ensemble",
-      "label": "Ensemble (GBM-t + bootstraps)",
-      "baseline": false,
-      "meanScore": 24.4
-    },
-    {
-      "key": "block_boot",
-      "label": "Block bootstrap",
-      "baseline": false,
-      "meanScore": 24.7
+      "key": "live_engine",
+      "label": "Shipped engine (forecast.js)",
+      "baseline": true,
+      "meanScore": 21.4
     },
     {
       "key": "gbm_normal",
       "label": "GBM (normal)",
       "baseline": false,
-      "meanScore": 24.9
+      "meanScore": 21.9
+    },
+    {
+      "key": "garch",
+      "label": "GARCH(1,1)-lite",
+      "baseline": false,
+      "meanScore": 23.1
     },
     {
       "key": "momentum",
       "label": "Momentum",
       "baseline": false,
-      "meanScore": 26.5
+      "meanScore": 23.5
     },
     {
-      "key": "bootstrap_iid",
-      "label": "Bootstrap (IID)",
+      "key": "ensemble",
+      "label": "Ensemble (GBM-t + bootstraps)",
       "baseline": false,
-      "meanScore": 27.9
+      "meanScore": 26.5
     },
     {
       "key": "ewma_t_zero",
       "label": "EWMA vol, zero drift (t)",
       "baseline": false,
-      "meanScore": 32.2
+      "meanScore": 29.8
+    },
+    {
+      "key": "block_boot",
+      "label": "Block bootstrap",
+      "baseline": false,
+      "meanScore": 29.9
+    },
+    {
+      "key": "bootstrap_iid",
+      "label": "Bootstrap (IID)",
+      "baseline": false,
+      "meanScore": 31.1
     },
     {
       "key": "ou",
       "label": "Mean-reversion (OU)",
       "baseline": false,
-      "meanScore": 39.5
+      "meanScore": 53.6
     }
   ],
   "best": {
-    "overall": "live_engine",
+    "overall": "gbm_t",
     "byHorizon": {
       "7": "gbm_t",
-      "14": "live_engine",
-      "30": "block_boot"
+      "14": "momentum",
+      "30": "live_engine"
     }
   },
   "recommendation": {
     "action": "keep",
     "strategy": "live_engine",
-    "reason": "Shipped engine is already the best-calibrated overall."
+    "reason": "Best challenger (GBM + Student-t) does not beat the shipped engine by the required 3-point margin."
   },
   "winnerPerCoin": {
     "BTC": {
       "7": {
-        "cov80": 85,
+        "cov80": 76,
         "meanPit": 0.5,
-        "dir": 55,
-        "score": 7.6
+        "dir": 44,
+        "score": 16
       },
       "14": {
-        "cov80": 80,
-        "meanPit": 0.5,
-        "dir": 54,
-        "score": 6.9
+        "cov80": 76,
+        "meanPit": 0.48,
+        "dir": 55,
+        "score": 18.6
       },
       "30": {
         "cov80": 70,
-        "meanPit": 0.52,
-        "dir": 48,
-        "score": 24.6
+        "meanPit": 0.42,
+        "dir": 65,
+        "score": 42.8
       }
     },
     "ETH": {
       "7": {
         "cov80": 84,
-        "meanPit": 0.49,
-        "dir": 59,
-        "score": 17.5
+        "meanPit": 0.46,
+        "dir": 54,
+        "score": 22.1
       },
       "14": {
-        "cov80": 82,
-        "meanPit": 0.49,
-        "dir": 62,
-        "score": 8.5
+        "cov80": 80,
+        "meanPit": 0.42,
+        "dir": 59,
+        "score": 19.7
       },
       "30": {
-        "cov80": 79,
-        "meanPit": 0.51,
-        "dir": 52,
-        "score": 10
+        "cov80": 72,
+        "meanPit": 0.36,
+        "dir": 50,
+        "score": 52.1
       }
     },
     "SOL": {
       "7": {
-        "cov80": 78,
-        "meanPit": 0.51,
-        "dir": 55,
-        "score": 18.8
+        "cov80": 80,
+        "meanPit": 0.49,
+        "dir": 46,
+        "score": 14.8
       },
       "14": {
-        "cov80": 83,
-        "meanPit": 0.52,
-        "dir": 51,
-        "score": 10.8
+        "cov80": 82,
+        "meanPit": 0.44,
+        "dir": 59,
+        "score": 20.8
       },
       "30": {
-        "cov80": 87,
-        "meanPit": 0.53,
-        "dir": 71,
-        "score": 23.6
+        "cov80": 72,
+        "meanPit": 0.37,
+        "dir": 70,
+        "score": 47.4
       }
     },
     "BNB": {
       "7": {
-        "cov80": 84,
+        "cov80": 74,
         "meanPit": 0.52,
-        "dir": 55,
-        "score": 16.3
+        "dir": 64,
+        "score": 13.6
       },
       "14": {
-        "cov80": 83,
-        "meanPit": 0.53,
-        "dir": 56,
-        "score": 14.9
+        "cov80": 77,
+        "meanPit": 0.52,
+        "dir": 58,
+        "score": 10.4
       },
       "30": {
-        "cov80": 89,
-        "meanPit": 0.56,
-        "dir": 56,
-        "score": 32.4
+        "cov80": 78,
+        "meanPit": 0.52,
+        "dir": 54,
+        "score": 24
       }
     },
     "XRP": {
       "7": {
-        "cov80": 84,
-        "meanPit": 0.48,
-        "dir": 59,
-        "score": 15.2
+        "cov80": 82,
+        "meanPit": 0.49,
+        "dir": 54,
+        "score": 10.5
       },
       "14": {
-        "cov80": 85,
-        "meanPit": 0.49,
-        "dir": 65,
-        "score": 22
+        "cov80": 84,
+        "meanPit": 0.46,
+        "dir": 59,
+        "score": 26.3
       },
       "30": {
-        "cov80": 86,
-        "meanPit": 0.5,
+        "cov80": 74,
+        "meanPit": 0.41,
         "dir": 70,
-        "score": 23.2
+        "score": 36.4
       }
     },
     "SUI": {
       "7": {
-        "cov80": 81,
-        "meanPit": 0.5,
+        "cov80": 78,
+        "meanPit": 0.52,
         "dir": 58,
-        "score": 3.8
+        "score": 12.2
       },
       "14": {
-        "cov80": 83,
-        "meanPit": 0.53,
-        "dir": 58,
-        "score": 13.2
+        "cov80": 78,
+        "meanPit": 0.49,
+        "dir": 63,
+        "score": 7.4
       },
       "30": {
-        "cov80": 92,
-        "meanPit": 0.57,
-        "dir": 57,
-        "score": 38
+        "cov80": 80,
+        "meanPit": 0.46,
+        "dir": 70,
+        "score": 12.5
       }
     },
     "AVAX": {
       "7": {
-        "cov80": 81,
+        "cov80": 80,
         "meanPit": 0.5,
-        "dir": 53,
-        "score": 10.5
+        "dir": 52,
+        "score": 2.8
       },
       "14": {
-        "cov80": 86,
-        "meanPit": 0.49,
-        "dir": 59,
-        "score": 21.8
+        "cov80": 80,
+        "meanPit": 0.44,
+        "dir": 65,
+        "score": 13.9
       },
       "30": {
-        "cov80": 79,
-        "meanPit": 0.5,
+        "cov80": 74,
+        "meanPit": 0.41,
         "dir": 63,
-        "score": 20.1
+        "score": 38.4
       }
     },
     "LINK": {
       "7": {
-        "cov80": 84,
-        "meanPit": 0.51,
-        "dir": 51,
-        "score": 8.1
+        "cov80": 86,
+        "meanPit": 0.47,
+        "dir": 48,
+        "score": 18.7
       },
       "14": {
-        "cov80": 83,
-        "meanPit": 0.53,
+        "cov80": 84,
+        "meanPit": 0.44,
         "dir": 59,
-        "score": 12.6
+        "score": 21.4
       },
       "30": {
-        "cov80": 94,
-        "meanPit": 0.56,
-        "dir": 49,
-        "score": 41.7
+        "cov80": 76,
+        "meanPit": 0.39,
+        "dir": 63,
+        "score": 41.8
       }
     },
     "INJ": {
       "7": {
-        "cov80": 73,
-        "meanPit": 0.6,
-        "dir": 46,
-        "score": 29.9
+        "cov80": 78,
+        "meanPit": 0.54,
+        "dir": 58,
+        "score": 15.8
       },
       "14": {
-        "cov80": 69,
-        "meanPit": 0.64,
-        "dir": 44,
-        "score": 55.7
+        "cov80": 82,
+        "meanPit": 0.52,
+        "dir": 57,
+        "score": 15.8
       },
       "30": {
-        "cov80": 67,
-        "meanPit": 0.73,
-        "dir": 38,
-        "score": 77.1
+        "cov80": 72,
+        "meanPit": 0.51,
+        "dir": 67,
+        "score": 22
       }
     },
     "OP": {
       "7": {
-        "cov80": 72,
-        "meanPit": 0.51,
-        "dir": 57,
-        "score": 22.3
+        "cov80": 76,
+        "meanPit": 0.5,
+        "dir": 54,
+        "score": 6.5
       },
       "14": {
-        "cov80": 73,
-        "meanPit": 0.52,
-        "dir": 62,
-        "score": 17.7
+        "cov80": 80,
+        "meanPit": 0.47,
+        "dir": 63,
+        "score": 16.1
       },
       "30": {
-        "cov80": 83,
-        "meanPit": 0.57,
-        "dir": 67,
-        "score": 27.1
+        "cov80": 67,
+        "meanPit": 0.43,
+        "dir": 72,
+        "score": 39.8
       }
     },
     "ARB": {
       "7": {
-        "cov80": 72,
-        "meanPit": 0.48,
-        "dir": 61,
-        "score": 27.1
+        "cov80": 78,
+        "meanPit": 0.46,
+        "dir": 56,
+        "score": 13.3
       },
       "14": {
-        "cov80": 73,
-        "meanPit": 0.5,
-        "dir": 68,
-        "score": 15.9
+        "cov80": 76,
+        "meanPit": 0.43,
+        "dir": 63,
+        "score": 25.8
       },
       "30": {
-        "cov80": 67,
-        "meanPit": 0.55,
-        "dir": 68,
-        "score": 41.4
+        "cov80": 65,
+        "meanPit": 0.4,
+        "dir": 78,
+        "score": 56.8
       }
     },
     "DOGE": {
       "7": {
-        "cov80": 77,
-        "meanPit": 0.5,
-        "dir": 53,
-        "score": 14.8
+        "cov80": 76,
+        "meanPit": 0.49,
+        "dir": 46,
+        "score": 11.1
       },
       "14": {
-        "cov80": 77,
-        "meanPit": 0.5,
-        "dir": 58,
-        "score": 5.4
+        "cov80": 80,
+        "meanPit": 0.45,
+        "dir": 59,
+        "score": 11.8
       },
       "30": {
-        "cov80": 78,
-        "meanPit": 0.54,
-        "dir": 52,
-        "score": 17.6
+        "cov80": 76,
+        "meanPit": 0.42,
+        "dir": 63,
+        "score": 23.2
       }
     },
     "TIA": {
       "7": {
         "cov80": 76,
-        "meanPit": 0.55,
-        "dir": 54,
-        "score": 19.1
+        "meanPit": 0.52,
+        "dir": 56,
+        "score": 18.6
       },
       "14": {
-        "cov80": 80,
-        "meanPit": 0.59,
-        "dir": 48,
-        "score": 25.3
+        "cov80": 82,
+        "meanPit": 0.51,
+        "dir": 63,
+        "score": 8.5
       },
       "30": {
-        "cov80": 87,
-        "meanPit": 0.65,
-        "dir": 51,
-        "score": 47.4
+        "cov80": 80,
+        "meanPit": 0.49,
+        "dir": 72,
+        "score": 8.8
       }
     },
     "APT": {
       "7": {
-        "cov80": 78,
-        "meanPit": 0.48,
-        "dir": 55,
-        "score": 21.8
+        "cov80": 84,
+        "meanPit": 0.47,
+        "dir": 64,
+        "score": 9
       },
       "14": {
-        "cov80": 83,
-        "meanPit": 0.49,
-        "dir": 66,
-        "score": 8.7
+        "cov80": 78,
+        "meanPit": 0.45,
+        "dir": 71,
+        "score": 16.2
       },
       "30": {
-        "cov80": 75,
-        "meanPit": 0.51,
-        "dir": 71,
-        "score": 13.4
+        "cov80": 70,
+        "meanPit": 0.41,
+        "dir": 83,
+        "score": 35
       }
     }
   },
   "routing": {
-    "generatedAt": "2026-06-29T12:51:40.959Z",
+    "generatedAt": "2026-06-29T13:11:10.822Z",
     "short": {
       "maxDays": 7,
       "strategy": "gbm_t"
     },
     "mid": {
       "maxDays": 21,
-      "strategy": "live_engine"
+      "strategy": "momentum"
     },
     "long": {
       "maxDays": 9999,
-      "strategy": "block_boot"
+      "strategy": "live_engine"
     }
   }
 }
