@@ -16,6 +16,8 @@ tune and improve the forecasting model.
 
 <!-- Daily calibration runs append below this line -->
 
+- 2026-06-30 AI daily: no change — calibration within tolerance (7d cov80=79.3%/14d 81.6%/30d 83.2%); 7d/14d meanPIT near 0.50 (0.50/0.53); live_engine #3 overall (score 23.5), only 0.2 behind gbm_normal (23.3) — well inside the 3-pt switch margin, tournament KEEP; auto-tuner's best alt (volPremium 0.9) gained just 0.07 error and was not applied; the only residual is the long-standing 30d meanPIT=0.56 upward (bullish) bias, which is a drift effect owned by the deterministic auto-tuner (driftDamp=0.55) and concentrated in idiosyncratic outliers (INJ 0.73, TIA 0.65) — special-casing risks overfitting and an AI drift change would thrash the auto-tuner. Conservative no-op. selftest 3/3 + require both exit 0
+
 - 2026-06-29 AI daily: no change — calibration within tolerance (7d 79%/14d 80%/30d 81%, all within 1pp of target); live_engine #1 overall (score 21.7), tournament KEEP; 7d/14d meanPIT near 0.50; residual 30d PIT=0.56 upward bias is stable and concentrated in INJ (0.73)/TIA (0.65) idiosyncratic outliers; auto-tuner's best drift alternative (driftDamp 0.4) gained only 0.18 error and was not applied, and driftDamp has oscillated 0.4↔0.55 for days, so no AI drift change is justified (overfitting/thrash risk). selftest 3/3 + require both exit 0
 
 - 2026-06-28 auto-tune: volPremium 0.95→0.95, driftDamp 0.4→0.55 (calibration error 23.4→22.71, cov80→80.3%)
