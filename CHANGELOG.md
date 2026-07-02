@@ -16,6 +16,10 @@ tune and improve the forecasting model.
 
 <!-- Daily calibration runs append below this line -->
 
+- 2026-07-02 auto-tune: volPremium 0.9→0.9, driftDamp 0.4→0.55 (calibration error 23.98→23.15, cov80→80.8%)
+
+- 2026-07-02 AI daily: no change — calibration within tolerance (7d cov80=79/14d 82/30d 82, all within 2pp of 80; meanPIT 0.50/0.53/0.55, all inside the "roughly unbiased" 0.43–0.57 band); live_engine #2 overall (score 23.6), 0.4 behind Momentum (23.2) — well inside the 3-pt switch margin, tournament KEEP. The only residual is the long-standing horizon-growing meanPIT (0.50→0.53→0.55) upward drift, which is owned by the deterministic auto-tuner via driftDamp — and it ACTED this run (driftDamp 0.4→0.55). driftDamp has oscillated 0.4↔0.55 for days because a scalar drift knob is fighting a horizon-shaped bias; layering a manual drift/horizon change on top would thrash the fresh auto-tune and is unverifiable against the offline (no-network) backtest. Residual bias stays concentrated in idiosyncratic per-coin outliers (INJ 30d 0.65, TIA 30d 0.59); special-casing risks overfitting. Conservative no-op. selftest 3/3 + require both exit 0
+
 - 2026-07-01 auto-tune: volPremium 0.95→0.9, driftDamp 0.55→0.4 (calibration error 21.82→21.27, cov80→79.5%)
 
 - 2026-07-01 AI daily: no change — aggregate calibration within tolerance (7d cov80=80.1%/14d 81.4%/30d 80.7%, all within ~1.4pp of 80; meanPIT 0.51/0.53/0.56); live_engine #1 overall (score 22.3), tournament KEEP. The deterministic auto-tuner ALREADY applied the relevant drift lever today (driftDamp 0.55→0.4, volPremium 0.95→0.9, error 21.82→21.27), which directly targets the residual 30d meanPIT=0.56 upward bias — layering a manual drift change on top would thrash the fresh auto-tune and is unverifiable against the offline network backtest. That residual bias stays concentrated in idiosyncratic per-coin outliers (INJ 0.73, TIA 0.65); special-casing coins risks overfitting. Conservative no-op. selftest 3/3 + require both exit 0
