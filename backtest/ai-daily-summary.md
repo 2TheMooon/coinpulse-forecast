@@ -1,26 +1,23 @@
-# AI Daily Summary — 2026-07-05
+# AI Daily Summary — 2026-07-06
 
-**Calibration (live_engine)**: 7d cov80=80.4% · 14d cov80=81.8% · 30d cov80=81.0% (target 80%)
-**meanPIT**: 7d=0.52 · 14d=0.53 · 30d=0.55 (target ~0.50, all inside 0.43–0.57 band)
-**Tournament**: KEEP `live_engine` (#1 overall, score 23.5; gbm_t 23.6, well inside 3-pt margin)
+**Calibration (live_engine)**: 7d cov80=75.7% · 14d cov80=80.8% · 30d cov80=80.0% (target 80%)
+**meanPIT**: 7d=0.52 · 14d=0.54 · 30d=0.57 (target ~0.50, all inside the 0.43–0.57 band)
+**Tournament**: KEEP `live_engine` (#3 overall, score 25.2; gbm_t & momentum tied at 24.7, inside the 3-pt margin)
 
-**Action**: No code change (conservative no-op). The headline target — cov80,
-"80% band contains ~80%" — is essentially perfect at every horizon, and every
-meanPIT is roughly unbiased. The engine is well-calibrated.
+**Action**: No code change (conservative no-op). The headline cov80 target is on-target
+at the two longer horizons (14d 80.8, 30d 80.0). The 7d cov80 dipped to 75.7 today, but
+that is a one-day low against a stable 78–80 run over the prior week (07-05 80.4, 06-30
+79.3, 06-29 79.0) — data-window noise, not a persistent deviation, so acting on it would
+chase noise. The auto-tuner ran and applied NO change (volPremium held at 0.85, driftDamp
+0.4, improvement 0, best aggregate cov80 79.5), i.e. the deterministic layer already
+judged the current params optimal.
 
-Investigated the sole persistent residual: cov50 runs ~3–6pp high (54.9/54.3/56.9)
-and cov90 ~1–2pp low (88.5/89.9/88.1) across 8+ days — the leptokurtic
-"center too wide, tails too thin" signature. Key finding: `backtestCalibration`
-derives its PIT analytically via `normCdf(z)` (a pure Gaussian), so `tDof` and the
-fat-tailed Monte-Carlo cone have **no effect** on the reported cov50/cov90. The
-signature is inherent to a Gaussian cross-check meeting fat-tailed crypto returns,
-not something the AI-owned MC levers can move. The only real fix — a Student-t PIT
-inside `backtestCalibration` — would change the metric's semantics, break historical
-comparability, and shift the auto-tuner's optimization target (it minimizes this
-error to tune volPremium); that's out of bounds and destabilizing. `longHorizonBoost`
-(the AI lever that *does* affect the metric) isn't indicated: cov80 is flat across
-horizons. driftDamp is auto-tuner-owned and already at 0.4, and the auto-tuner acted
-today (volPremium 0.9→0.85).
+The only persistent residual remains the 30d meanPIT=0.565 upper-edge upward bias, which
+is concentrated in idiosyncratic per-coin outliers (INJ 0.72, TIA 0.64) and is the
+driftDamp effect — an auto-tuner-owned lever already at 0.4. Special-casing those coins
+risks overfitting, and an AI drift change would thrash the auto-tuner's optimization.
+No AI-owned lever (`longHorizonBoost`, `tDof`) is indicated: cov80 is not persistently
+off at any horizon.
 
 Verified: `node backtest/selftest.js` (martingale 0.976, calibration 3/3) and
 `node -e "require('./forecast.js')"` both exit 0.
