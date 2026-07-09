@@ -1,23 +1,24 @@
-# AI Daily Summary — 2026-07-06
+# AI Daily Summary — 2026-07-09
 
-**Calibration (live_engine)**: 7d cov80=75.7% · 14d cov80=80.8% · 30d cov80=80.0% (target 80%)
-**meanPIT**: 7d=0.52 · 14d=0.54 · 30d=0.57 (target ~0.50, all inside the 0.43–0.57 band)
-**Tournament**: KEEP `live_engine` (#3 overall, score 25.2; gbm_t & momentum tied at 24.7, inside the 3-pt margin)
+**Verdict:** Calibration within tolerance. **No model change** (conservative no-op). Also performed a repo recovery.
 
-**Action**: No code change (conservative no-op). The headline cov80 target is on-target
-at the two longer horizons (14d 80.8, 30d 80.0). The 7d cov80 dipped to 75.7 today, but
-that is a one-day low against a stable 78–80 run over the prior week (07-05 80.4, 06-30
-79.3, 06-29 79.0) — data-window noise, not a persistent deviation, so acting on it would
-chase noise. The auto-tuner ran and applied NO change (volPremium held at 0.85, driftDamp
-0.4, improvement 0, best aggregate cov80 79.5), i.e. the deterministic layer already
-judged the current params optimal.
+## Shipped-engine calibration (2026-07-09)
+| Horizon | cov80 (target 80) | meanPIT (~0.50) | score |
+|---|---|---|---|
+| 7d  | 77.6 (−2.4) | 0.551 | 23.2 |
+| 14d | 79.9 (on target) | 0.553 | 23.0 |
+| 30d | 79.7 (on target) | 0.574 | 36.2 |
 
-The only persistent residual remains the 30d meanPIT=0.565 upper-edge upward bias, which
-is concentrated in idiosyncratic per-coin outliers (INJ 0.72, TIA 0.64) and is the
-driftDamp effect — an auto-tuner-owned lever already at 0.4. Special-casing those coins
-risks overfitting, and an AI drift change would thrash the auto-tuner's optimization.
-No AI-owned lever (`longHorizonBoost`, `tDof`) is indicated: cov80 is not persistently
-off at any horizon.
+Tournament: **KEEP `live_engine`**. Best challenger block_boot (mean score 26.3) does not beat the shipped engine (27.5) by the 3-pt switch margin (gap 1.2). Routing unchanged (7d→momentum, mid→momentum, long→block_boot). Auto-tuner applied **no change** (volPremium 0.85, driftDamp 0.4, improvement 0).
 
-Verified: `node backtest/selftest.js` (martingale 0.976, calibration 3/3) and
-`node -e "require('./forecast.js')"` both exit 0.
+## Why no change
+- **7d is only ~2.4pp light and recovering.** Its cov80 fell to 73.1/73.0 on 07-06/07 and has climbed monotonically since (75.4 → 77.6) back toward its usual ~77–80 band. This is window noise, not a persistent structural deviation.
+- **Longer horizons are on-target** (14d 79.9, 30d 79.7). The only cov80 lever, volPremium, is global — widening it to lift 7d would push 14d/30d over 80. The auto-tuner correctly held it.
+- **meanPIT swung up in one day** (from ~0.45–0.49 all last week to 0.55–0.57 today), which confirms today's data window carries upward drift — a single-snapshot draw, not a basis for a term-structure change. The 30d=0.574 upper-edge bias is the long-standing driftDamp effect (auto-tuner-owned, repeatedly judged overfitting-risk to special-case).
+
+## Repo recovery (this run)
+On entry the working tree was stuck mid-`pull --rebase` in a corrupted conflict state, replaying a stale yesterday ai-daily commit onto origin's fresh 2026-07-09 calibration (`19e2d05`). Resolved conflicts by taking origin's fresh report data for every conflicted file, abandoned the broken rebase machinery without clobbering the fresh working-tree reports, and re-synced `master` to origin's tip. No model/engine code was touched.
+
+## Verification
+- `node backtest/selftest.js` → **OK** (martingale ratio 0.976, calibration 3/3), exit 0
+- `node -e "require('./forecast.js')"` → **OK**, exit 0
