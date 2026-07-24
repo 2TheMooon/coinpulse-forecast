@@ -161,7 +161,7 @@ function rewriteModelBlock(volPremium, driftDamp, tDof) {
     "    volPremium: " + volPremium + ", // global multiplier on estimated daily sigma\n" +
     "    driftDamp: " + driftDamp + ", // fraction of raw drift carried forward\n" +
     "    tDof: " + tDof + ", // Student-t degrees of freedom (fat tails)\n" +
-    "    longHorizonBoost: " + lhb + ", // horizon-dependent vol boost (0 at 7d, full at 30d)\n" +
+    "    longHorizonBoost: " + lhb + ", // term-structure vol boost, scales with horizon (~7% at 7d → 30% at 30d)\n" +
     "  };";
   const re = /var MODEL = \{[\s\S]*?\};/;
   if (!re.test(src)) throw new Error("Could not find MODEL block in forecast.js");

@@ -30,7 +30,7 @@
     volPremium: 0.85, // global multiplier on estimated daily sigma
     driftDamp: 0.4, // fraction of raw drift carried forward
     tDof: 5, // Student-t degrees of freedom (fat tails)
-    longHorizonBoost: 0.30, // horizon-dependent vol boost (0 at 7d, full at 30d)
+    longHorizonBoost: 0.30, // term-structure vol boost, scales with horizon (~7% at 7d → 30% at 30d)
   };
   // <<< AUTO-TUNED MODEL CONFIG <<<
 
@@ -326,7 +326,10 @@
     const seed = opts.seed == null ? 1337 : opts.seed;
 
     const s0 = stats.lastPrice;
-    const horizonFactor = 1 + (MODEL.longHorizonBoost || 0) * Math.max(0, (horizon - 7) / 23);
+    // Term-structure vol premium: widens the cone with horizon (~7% at 7d → 30% at
+    // 30d). Short horizons need this extra width too — daily fat tails haven't yet
+    // averaged toward normal (CLT), so a plain sqrt-time band under-covers there.
+    const horizonFactor = 1 + (MODEL.longHorizonBoost || 0) * (horizon / 30);
     const sigma = Math.max(1e-6, (stats.simSigma || stats.sigmaDaily) * volScale * MODEL.volPremium * horizonFactor);
 
     // Damp the raw drift toward zero (recent trend rarely persists fully) and
@@ -593,7 +596,8 @@
     const horizon = Math.max(1, Math.round(opts.horizon || 30));
     const driftDamp = opts.driftDamp == null ? MODEL.driftDamp : opts.driftDamp;
     const volScale = opts.volScale == null ? 1 : opts.volScale;
-    const horizonFactor = 1 + (MODEL.longHorizonBoost || 0) * Math.max(0, (horizon - 7) / 23);
+    // Same term-structure premium as the Monte Carlo cone (see simulate()).
+    const horizonFactor = 1 + (MODEL.longHorizonBoost || 0) * (horizon / 30);
     const sigma = Math.max(1e-6, (stats.simSigma || stats.sigmaDaily) * volScale * MODEL.volPremium * horizonFactor);
     let mu = stats.muDaily * driftDamp;
     mu = clamp(mu, -3 * sigma, 3 * sigma);
@@ -654,7 +658,8 @@
     for (let i = minTrain; i <= lastAnchor; i += step) {
       const slice = closes.slice(0, i + 1);
       const est = quickMuSigma(slice);
-      const horizonFactor = 1 + (MODEL.longHorizonBoost || 0) * Math.max(0, (horizon - 7) / 23);
+      // Must mirror simulate()/analyticTerminal() so calibration scores the same cone.
+      const horizonFactor = 1 + (MODEL.longHorizonBoost || 0) * (horizon / 30);
       const sig = Math.max(1e-6, est.sigma * volScale * MODEL.volPremium * horizonFactor);
       let mu = clamp(est.muDaily * driftDamp, -3 * sig, 3 * sig);
       mu = clamp(mu, -0.02, 0.02);
