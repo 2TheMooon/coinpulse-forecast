@@ -1,17 +1,17 @@
 {
-  "date": "2026-08-11",
+  "date": "2026-08-10",
   "current": {
     "volPremium": 0.85,
     "driftDamp": 0.4,
     "tDof": 5
   },
-  "baselineError": 25.26,
+  "baselineError": 25.32,
   "best": {
     "volPremium": 0.85,
     "driftDamp": 0.4,
-    "error": 25.26,
-    "cov80": 80.8,
-    "meanPit": 0.537
+    "error": 25.32,
+    "cov80": 79.8,
+    "meanPit": 0.541
   },
   "improvement": 0,
   "applied": false,

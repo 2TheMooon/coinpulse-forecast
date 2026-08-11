@@ -183,25 +183,34 @@ function normalizeCoinGecko(payload) {
   }
   return out.length >= 60 ? out : null;
 }
+// Every feed is ASKED for HISTORY_LIMIT days, but not every feed honours it:
+// Coinbase's candles endpoint has no limit parameter and returns ~350 days. That
+// silently made the tournament score a different (longer) window set on days the
+// Coinbase fallback answered, so cov80/meanPit were not comparable day-to-day —
+// and disagreed with auto-tune.js, which only ever sees 200 days. Cap every
+// source to the same depth so `config.historyDays` is the truth for all of them.
+function capHistory(candles) {
+  return candles && candles.length > HISTORY_LIMIT ? candles.slice(-HISTORY_LIMIT) : candles;
+}
 async function fetchCandles(symbol) {
   const ccUrl = "https://min-api.cryptocompare.com/data/v2/histoday?fsym=" + encodeURIComponent(symbol) + "&tsym=USD&limit=" + HISTORY_LIMIT;
   try {
     const candles = normalizeCryptoCompare(await fetchJson(ccUrl));
-    if (candles) return { candles, source: "cryptocompare" };
+    if (candles) return { candles: capHistory(candles), source: "cryptocompare" };
   } catch (err) {
     /* fall through */
   }
   const bnUrl = "https://api.binance.com/api/v3/klines?symbol=" + encodeURIComponent(symbol + "USDT") + "&interval=1d&limit=" + HISTORY_LIMIT;
   try {
     const candles = normalizeBinance(await fetchJson(bnUrl));
-    if (candles) return { candles, source: "binance" };
+    if (candles) return { candles: capHistory(candles), source: "binance" };
   } catch (err) {
     /* fall through */
   }
   // Coinbase — reachable from GitHub runners that block CC/Binance.
   try {
     const candles = normalizeCoinbase(await fetchJson("https://api.exchange.coinbase.com/products/" + encodeURIComponent(symbol) + "-USD/candles?granularity=86400"));
-    if (candles) return { candles, source: "coinbase" };
+    if (candles) return { candles: capHistory(candles), source: "coinbase" };
   } catch (err) {
     /* fall through */
   }
@@ -210,7 +219,7 @@ async function fetchCandles(symbol) {
     const id = COINGECKO_IDS[symbol];
     if (id) {
       const candles = normalizeCoinGecko(await fetchJson("https://api.coingecko.com/api/v3/coins/" + id + "/market_chart?vs_currency=usd&days=" + HISTORY_LIMIT));
-      if (candles) return { candles, source: "coingecko" };
+      if (candles) return { candles: capHistory(candles), source: "coingecko" };
     }
   } catch (err) {
     /* all feeds failed */
