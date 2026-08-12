@@ -33,8 +33,14 @@ const REQUEST_TIMEOUT_MS = 12000;
 const APPLY = process.argv.includes("--apply");
 
 // Search grid + guard rails.
+// NOTE: a grid must cover its own bounds, or the search silently pins at an edge.
+// DAMP_GRID used to start at 0.4 while DAMP_BOUNDS permits 0.2, so driftDamp sat at
+// the grid's lowest value for 37 straight runs (improvement 0 since 2026-07-06) and
+// the tuner could not reach the smaller drift the data asks for: across all 66
+// tournament reports the shipped engine's meanPIT exceeds the zero-drift control by
+// +0.09 at 30d (+0.02..+0.10 at 7d/14d), i.e. the carried drift is what biases PIT.
 const VOL_GRID = gridRange(0.85, 1.45, 0.05);
-const DAMP_GRID = [0.4, 0.55, 0.7];
+const DAMP_GRID = [0.2, 0.25, 0.3, 0.4, 0.55, 0.7];
 const MIN_IMPROVE = 0.5; // require at least this much error reduction to apply
 const VOL_BOUNDS = [0.7, 1.8];
 const DAMP_BOUNDS = [0.2, 0.95];
