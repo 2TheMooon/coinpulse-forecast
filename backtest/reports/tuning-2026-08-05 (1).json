@@ -1,0 +1,19 @@
+{
+  "date": "2026-08-05",
+  "current": {
+    "volPremium": 0.85,
+    "driftDamp": 0.4,
+    "tDof": 5
+  },
+  "baselineError": 26.8,
+  "best": {
+    "volPremium": 0.85,
+    "driftDamp": 0.4,
+    "error": 26.8,
+    "cov80": 80.3,
+    "meanPit": 0.551
+  },
+  "improvement": 0,
+  "applied": false,
+  "coinsUsed": 14
+}

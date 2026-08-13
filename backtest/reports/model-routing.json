@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T10:11:36.676Z",
+  "generatedAt": "2026-08-13T06:30:33.645Z",
   "short": {
     "maxDays": 7,
     "strategy": "momentum"
@@ -10,6 +10,6 @@
   },
   "long": {
     "maxDays": 9999,
-    "strategy": "block_boot"
+    "strategy": "garch"
   }
 }
