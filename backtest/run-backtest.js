@@ -303,7 +303,14 @@ function calibrateEntry(entry, candles, closes, horizon, Forecast) {
     if (!Forecast) return null;
     let r;
     try {
-      r = Forecast.backtestCalibration(candles, { horizon: horizon, driftDamp: 0.55, volScale: 1, fatTails: true });
+      // Score the baseline with the SHIPPED settings. Omitting driftDamp makes
+      // backtestCalibration fall back to MODEL.driftDamp, which is the knob the
+      // auto-tuner actually moves. This used to hard-code `driftDamp: 0.55` — a
+      // literal that never matched MODEL.driftDamp (0.4 at the fork's first
+      // commit, 0.25 today), so the "Shipped engine" row has been grading a
+      // configuration the tool has never shipped, and every driftDamp change the
+      // tuner applied was invisible to the tournament.
+      r = Forecast.backtestCalibration(candles, { horizon: horizon, volScale: 1, fatTails: true });
     } catch (err) {
       return null;
     }
