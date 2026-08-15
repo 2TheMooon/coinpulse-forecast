@@ -1,7 +1,7 @@
 {
   "date": "2026-08-15",
-  "generatedAt": "2026-08-15T07:45:22.687Z",
-  "durationMs": 24602,
+  "generatedAt": "2026-08-15T09:30:18.692Z",
+  "durationMs": 12467,
   "config": {
     "horizons": [
       7,
@@ -23,72 +23,72 @@
   "coins": [
     {
       "symbol": "BTC",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "ETH",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "SOL",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "BNB",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "XRP",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "SUI",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "AVAX",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "LINK",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "INJ",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "OP",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "ARB",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "DOGE",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "TIA",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     },
     {
       "symbol": "APT",
-      "source": "binance",
+      "source": "coinbase",
       "candles": 200
     }
   ],
@@ -152,13 +152,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 700,
-        "cov50": 53,
+        "cov50": 53.1,
         "cov80": 80,
-        "cov90": 88.4,
-        "meanPit": 0.483,
-        "dirAccuracy": 50.4,
+        "cov90": 88.7,
+        "meanPit": 0.482,
+        "dirAccuracy": 50.3,
         "sharpness": 0.216,
-        "score": 17.1
+        "score": 17.7
       },
       {
         "key": "live_engine",
@@ -166,13 +166,13 @@
         "baseline": true,
         "coins": 14,
         "windows": 1036,
-        "cov50": 55.3,
-        "cov80": 81.3,
-        "cov90": 88.6,
-        "meanPit": 0.499,
+        "cov50": 54.6,
+        "cov80": 80.7,
+        "cov90": 88.9,
+        "meanPit": 0.492,
         "dirAccuracy": 57.6,
         "sharpness": null,
-        "score": 17.7
+        "score": 18.2
       },
       {
         "key": "gbm_t",
@@ -180,13 +180,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 700,
-        "cov50": 56.7,
+        "cov50": 56.1,
         "cov80": 81.7,
         "cov90": 89.1,
-        "meanPit": 0.531,
-        "dirAccuracy": 58.4,
+        "meanPit": 0.529,
+        "dirAccuracy": 58.9,
         "sharpness": 0.207,
-        "score": 20.6
+        "score": 19.9
       },
       {
         "key": "gbm_normal",
@@ -194,13 +194,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 700,
-        "cov50": 59.3,
-        "cov80": 83.3,
+        "cov50": 59,
+        "cov80": 83.1,
         "cov90": 91,
         "meanPit": 0.523,
-        "dirAccuracy": 57.9,
+        "dirAccuracy": 58.3,
         "sharpness": 0.214,
-        "score": 21.8
+        "score": 21.6
       },
       {
         "key": "ewma_t_zero",
@@ -210,11 +210,11 @@
         "windows": 700,
         "cov50": 57.4,
         "cov80": 82.9,
-        "cov90": 89.9,
-        "meanPit": 0.477,
-        "dirAccuracy": 58,
+        "cov90": 90,
+        "meanPit": 0.476,
+        "dirAccuracy": 58.1,
         "sharpness": 0.21,
-        "score": 22.1
+        "score": 21.6
       },
       {
         "key": "garch",
@@ -222,27 +222,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 700,
-        "cov50": 58.1,
-        "cov80": 83.7,
-        "cov90": 90.4,
-        "meanPit": 0.521,
-        "dirAccuracy": 58.4,
+        "cov50": 57.7,
+        "cov80": 83.6,
+        "cov90": 90.3,
+        "meanPit": 0.52,
+        "dirAccuracy": 58.9,
         "sharpness": 0.211,
-        "score": 22.3
-      },
-      {
-        "key": "block_boot",
-        "label": "Block bootstrap",
-        "baseline": false,
-        "coins": 14,
-        "windows": 700,
-        "cov50": 64.1,
-        "cov80": 86.1,
-        "cov90": 93.1,
-        "meanPit": 0.498,
-        "dirAccuracy": 53.3,
-        "sharpness": 0.242,
-        "score": 29.3
+        "score": 21.9
       },
       {
         "key": "ensemble",
@@ -250,13 +236,27 @@
         "baseline": false,
         "coins": 14,
         "windows": 700,
-        "cov50": 64.3,
+        "cov50": 63.7,
         "cov80": 86.9,
-        "cov90": 93.1,
-        "meanPit": 0.509,
-        "dirAccuracy": 54.9,
+        "cov90": 93,
+        "meanPit": 0.508,
+        "dirAccuracy": 55.7,
         "sharpness": 0.238,
-        "score": 29.4
+        "score": 28.6
+      },
+      {
+        "key": "block_boot",
+        "label": "Block bootstrap",
+        "baseline": false,
+        "coins": 14,
+        "windows": 700,
+        "cov50": 64.4,
+        "cov80": 85.9,
+        "cov90": 93.1,
+        "meanPit": 0.497,
+        "dirAccuracy": 53.1,
+        "sharpness": 0.242,
+        "score": 29.5
       },
       {
         "key": "bootstrap_iid",
@@ -264,13 +264,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 700,
-        "cov50": 68.1,
-        "cov80": 89,
+        "cov50": 68,
+        "cov80": 89.1,
         "cov90": 94.9,
-        "meanPit": 0.512,
-        "dirAccuracy": 57.6,
+        "meanPit": 0.511,
+        "dirAccuracy": 58.1,
         "sharpness": 0.264,
-        "score": 36.6
+        "score": 36.7
       },
       {
         "key": "ou",
@@ -278,13 +278,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 700,
-        "cov50": 45.7,
+        "cov50": 45.9,
         "cov80": 72.3,
         "cov90": 80,
-        "meanPit": 0.423,
-        "dirAccuracy": 53,
-        "sharpness": 0.185,
-        "score": 44.3
+        "meanPit": 0.422,
+        "dirAccuracy": 52.9,
+        "sharpness": 0.184,
+        "score": 43.7
       }
     ],
     "14": [
@@ -294,10 +294,10 @@
         "baseline": false,
         "coins": 14,
         "windows": 658,
-        "cov50": 50.8,
+        "cov50": 50.2,
         "cov80": 79.5,
-        "cov90": 89.7,
-        "meanPit": 0.489,
+        "cov90": 89.8,
+        "meanPit": 0.488,
         "dirAccuracy": 47.4,
         "sharpness": 0.314,
         "score": 17.3
@@ -308,13 +308,13 @@
         "baseline": true,
         "coins": 14,
         "windows": 994,
-        "cov50": 56.9,
-        "cov80": 82.7,
-        "cov90": 89.3,
-        "meanPit": 0.513,
-        "dirAccuracy": 55.3,
+        "cov50": 56.3,
+        "cov80": 82.8,
+        "cov90": 89.4,
+        "meanPit": 0.503,
+        "dirAccuracy": 54.8,
         "sharpness": null,
-        "score": 22.6
+        "score": 22
       },
       {
         "key": "gbm_t",
@@ -323,12 +323,12 @@
         "coins": 14,
         "windows": 658,
         "cov50": 55.3,
-        "cov80": 81.6,
-        "cov90": 89.2,
-        "meanPit": 0.545,
+        "cov80": 81.8,
+        "cov90": 89.4,
+        "meanPit": 0.543,
         "dirAccuracy": 55.5,
-        "sharpness": 0.293,
-        "score": 23.4
+        "sharpness": 0.294,
+        "score": 23.6
       },
       {
         "key": "gbm_normal",
@@ -336,13 +336,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 658,
-        "cov50": 58.8,
-        "cov80": 83.7,
-        "cov90": 90.3,
-        "meanPit": 0.55,
+        "cov50": 58.5,
+        "cov80": 83.9,
+        "cov90": 90.4,
+        "meanPit": 0.548,
         "dirAccuracy": 55.8,
-        "sharpness": 0.305,
-        "score": 28
+        "sharpness": 0.306,
+        "score": 27.8
       },
       {
         "key": "ewma_t_zero",
@@ -351,12 +351,12 @@
         "coins": 14,
         "windows": 658,
         "cov50": 58.8,
-        "cov80": 85.6,
+        "cov80": 85.7,
         "cov90": 90.3,
-        "meanPit": 0.47,
+        "meanPit": 0.469,
         "dirAccuracy": 58.8,
         "sharpness": 0.302,
-        "score": 29.1
+        "score": 29.5
       },
       {
         "key": "garch",
@@ -365,12 +365,12 @@
         "coins": 14,
         "windows": 658,
         "cov50": 58.7,
-        "cov80": 84.8,
+        "cov80": 85.6,
         "cov90": 92.1,
-        "meanPit": 0.549,
+        "meanPit": 0.548,
         "dirAccuracy": 55.3,
         "sharpness": 0.311,
-        "score": 30.8
+        "score": 30.7
       },
       {
         "key": "block_boot",
@@ -378,13 +378,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 658,
-        "cov50": 63.1,
-        "cov80": 88,
+        "cov50": 62.9,
+        "cov80": 87.7,
         "cov90": 94.2,
         "meanPit": 0.51,
-        "dirAccuracy": 51.8,
+        "dirAccuracy": 52.3,
         "sharpness": 0.342,
-        "score": 32.9
+        "score": 32.7
       },
       {
         "key": "ensemble",
@@ -392,13 +392,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 658,
-        "cov50": 62,
-        "cov80": 87.2,
+        "cov50": 62.6,
+        "cov80": 87.5,
         "cov90": 94.1,
-        "meanPit": 0.525,
+        "meanPit": 0.524,
         "dirAccuracy": 55.3,
         "sharpness": 0.337,
-        "score": 33.4
+        "score": 33.8
       },
       {
         "key": "bootstrap_iid",
@@ -406,13 +406,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 658,
-        "cov50": 66.9,
+        "cov50": 66.6,
         "cov80": 90.6,
-        "cov90": 94.7,
-        "meanPit": 0.52,
-        "dirAccuracy": 54.4,
-        "sharpness": 0.372,
-        "score": 38.8
+        "cov90": 94.8,
+        "meanPit": 0.519,
+        "dirAccuracy": 54.3,
+        "sharpness": 0.373,
+        "score": 38.5
       },
       {
         "key": "ou",
@@ -420,16 +420,30 @@
         "baseline": false,
         "coins": 14,
         "windows": 658,
-        "cov50": 32.8,
-        "cov80": 59.6,
-        "cov90": 71.4,
-        "meanPit": 0.404,
-        "dirAccuracy": 56.8,
-        "sharpness": 0.207,
-        "score": 81.8
+        "cov50": 32.7,
+        "cov80": 59.9,
+        "cov90": 71.6,
+        "meanPit": 0.403,
+        "dirAccuracy": 57,
+        "sharpness": 0.206,
+        "score": 81.6
       }
     ],
     "30": [
+      {
+        "key": "live_engine",
+        "label": "Shipped engine (forecast.js)",
+        "baseline": true,
+        "coins": 14,
+        "windows": 882,
+        "cov50": 59.6,
+        "cov80": 80.6,
+        "cov90": 88.2,
+        "meanPit": 0.505,
+        "dirAccuracy": 52.5,
+        "sharpness": null,
+        "score": 34.3
+      },
       {
         "key": "block_boot",
         "label": "Block bootstrap",
@@ -437,26 +451,12 @@
         "coins": 14,
         "windows": 882,
         "cov50": 55.1,
-        "cov80": 81.5,
+        "cov80": 81.7,
         "cov90": 91,
-        "meanPit": 0.538,
-        "dirAccuracy": 51.7,
+        "meanPit": 0.537,
+        "dirAccuracy": 51.9,
         "sharpness": 0.486,
-        "score": 35.5
-      },
-      {
-        "key": "live_engine",
-        "label": "Shipped engine (forecast.js)",
-        "baseline": true,
-        "coins": 14,
-        "windows": 882,
-        "cov50": 57.9,
-        "cov80": 80.4,
-        "cov90": 88.8,
-        "meanPit": 0.526,
-        "dirAccuracy": 53.3,
-        "sharpness": null,
-        "score": 35.5
+        "score": 36
       },
       {
         "key": "garch",
@@ -464,13 +464,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 882,
-        "cov50": 47.8,
-        "cov80": 80.8,
-        "cov90": 90.6,
-        "meanPit": 0.578,
-        "dirAccuracy": 53.1,
+        "cov50": 48,
+        "cov80": 81,
+        "cov90": 90.5,
+        "meanPit": 0.577,
+        "dirAccuracy": 53.2,
         "sharpness": 0.464,
-        "score": 37.7
+        "score": 37.9
       },
       {
         "key": "ewma_t_zero",
@@ -478,13 +478,27 @@
         "baseline": false,
         "coins": 14,
         "windows": 882,
-        "cov50": 57.8,
+        "cov50": 57.7,
         "cov80": 77.8,
         "cov90": 85,
-        "meanPit": 0.47,
-        "dirAccuracy": 47.7,
+        "meanPit": 0.469,
+        "dirAccuracy": 47.8,
         "sharpness": 0.454,
-        "score": 38.5
+        "score": 38.7
+      },
+      {
+        "key": "gbm_normal",
+        "label": "GBM (normal)",
+        "baseline": false,
+        "coins": 14,
+        "windows": 882,
+        "cov50": 46,
+        "cov80": 74.6,
+        "cov90": 84.4,
+        "meanPit": 0.571,
+        "dirAccuracy": 52.9,
+        "sharpness": 0.433,
+        "score": 39
       },
       {
         "key": "momentum",
@@ -493,26 +507,12 @@
         "coins": 14,
         "windows": 882,
         "cov50": 42.3,
-        "cov80": 67,
+        "cov80": 67.2,
         "cov90": 78.6,
-        "meanPit": 0.494,
-        "dirAccuracy": 45.6,
-        "sharpness": 0.462,
-        "score": 39.5
-      },
-      {
-        "key": "gbm_normal",
-        "label": "GBM (normal)",
-        "baseline": false,
-        "coins": 14,
-        "windows": 882,
-        "cov50": 45.7,
-        "cov80": 74.6,
-        "cov90": 84.2,
-        "meanPit": 0.571,
-        "dirAccuracy": 52.8,
-        "sharpness": 0.433,
-        "score": 39.7
+        "meanPit": 0.493,
+        "dirAccuracy": 45.8,
+        "sharpness": 0.463,
+        "score": 39.3
       },
       {
         "key": "gbm_t",
@@ -520,13 +520,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 882,
-        "cov50": 44.6,
+        "cov50": 44.9,
         "cov80": 73.2,
-        "cov90": 83.8,
-        "meanPit": 0.572,
-        "dirAccuracy": 52.8,
-        "sharpness": 0.425,
-        "score": 39.8
+        "cov90": 83.9,
+        "meanPit": 0.571,
+        "dirAccuracy": 52.9,
+        "sharpness": 0.426,
+        "score": 40.1
       },
       {
         "key": "bootstrap_iid",
@@ -534,13 +534,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 882,
-        "cov50": 59.5,
-        "cov80": 86.6,
-        "cov90": 94,
-        "meanPit": 0.544,
-        "dirAccuracy": 51.6,
+        "cov50": 59.4,
+        "cov80": 86.4,
+        "cov90": 94.2,
+        "meanPit": 0.543,
+        "dirAccuracy": 51.5,
         "sharpness": 0.54,
-        "score": 40.5
+        "score": 40.6
       },
       {
         "key": "ensemble",
@@ -548,13 +548,13 @@
         "baseline": false,
         "coins": 14,
         "windows": 882,
-        "cov50": 61.6,
-        "cov80": 88.4,
-        "cov90": 95.2,
-        "meanPit": 0.543,
-        "dirAccuracy": 51.4,
+        "cov50": 61.5,
+        "cov80": 88.2,
+        "cov90": 95.6,
+        "meanPit": 0.542,
+        "dirAccuracy": 51.2,
         "sharpness": 0.579,
-        "score": 41.5
+        "score": 41.8
       },
       {
         "key": "ou",
@@ -564,11 +564,11 @@
         "windows": 882,
         "cov50": 28.8,
         "cov80": 45.8,
-        "cov90": 54.6,
-        "meanPit": 0.397,
+        "cov90": 54.5,
+        "meanPit": 0.396,
         "dirAccuracy": 61.8,
         "sharpness": 0.214,
-        "score": 124.4
+        "score": 124.6
       }
     ]
   },
@@ -577,25 +577,25 @@
       "key": "momentum",
       "label": "Momentum",
       "baseline": false,
-      "meanScore": 24.6
+      "meanScore": 24.8
     },
     {
       "key": "live_engine",
       "label": "Shipped engine (forecast.js)",
       "baseline": true,
-      "meanScore": 25.3
+      "meanScore": 24.8
     },
     {
       "key": "gbm_t",
       "label": "GBM + Student-t",
       "baseline": false,
-      "meanScore": 27.9
+      "meanScore": 27.8
     },
     {
       "key": "gbm_normal",
       "label": "GBM (normal)",
       "baseline": false,
-      "meanScore": 29.9
+      "meanScore": 29.5
     },
     {
       "key": "ewma_t_zero",
@@ -607,19 +607,19 @@
       "key": "garch",
       "label": "GARCH(1,1)-lite",
       "baseline": false,
-      "meanScore": 30.3
+      "meanScore": 30.2
     },
     {
       "key": "block_boot",
       "label": "Block bootstrap",
       "baseline": false,
-      "meanScore": 32.6
+      "meanScore": 32.7
     },
     {
       "key": "ensemble",
       "label": "Ensemble (GBM-t + bootstraps)",
       "baseline": false,
-      "meanScore": 34.8
+      "meanScore": 34.7
     },
     {
       "key": "bootstrap_iid",
@@ -631,7 +631,7 @@
       "key": "ou",
       "label": "Mean-reversion (OU)",
       "baseline": false,
-      "meanScore": 83.5
+      "meanScore": 83.3
     }
   ],
   "best": {
@@ -639,7 +639,7 @@
     "byHorizon": {
       "7": "momentum",
       "14": "momentum",
-      "30": "block_boot"
+      "30": "live_engine"
     }
   },
   "recommendation": {
@@ -659,13 +659,13 @@
         "cov80": 70,
         "meanPit": 0.46,
         "dir": 49,
-        "score": 20.7
+        "score": 18.7
       },
       "30": {
-        "cov80": 54,
+        "cov80": 56,
         "meanPit": 0.47,
         "dir": 46,
-        "score": 62.4
+        "score": 60.8
       }
     },
     "ETH": {
@@ -673,73 +673,73 @@
         "cov80": 86,
         "meanPit": 0.47,
         "dir": 52,
-        "score": 24.5
+        "score": 24.6
       },
       "14": {
         "cov80": 81,
         "meanPit": 0.45,
         "dir": 49,
-        "score": 13.7
+        "score": 11.6
       },
       "30": {
         "cov80": 67,
         "meanPit": 0.46,
         "dir": 54,
-        "score": 48.5
+        "score": 46.9
       }
     },
     "SOL": {
       "7": {
         "cov80": 78,
         "meanPit": 0.48,
-        "dir": 42,
-        "score": 11.4
+        "dir": 44,
+        "score": 11.5
       },
       "14": {
         "cov80": 74,
-        "meanPit": 0.48,
+        "meanPit": 0.49,
         "dir": 36,
-        "score": 12.4
+        "score": 12.3
       },
       "30": {
         "cov80": 73,
         "meanPit": 0.46,
-        "dir": 37,
-        "score": 22.9
+        "dir": 38,
+        "score": 22.8
       }
     },
     "BNB": {
       "7": {
         "cov80": 88,
         "meanPit": 0.5,
-        "dir": 52,
-        "score": 20.4
+        "dir": 48,
+        "score": 20.1
       },
       "14": {
         "cov80": 87,
         "meanPit": 0.53,
-        "dir": 45,
-        "score": 22.5
+        "dir": 47,
+        "score": 22.2
       },
       "30": {
         "cov80": 75,
         "meanPit": 0.51,
         "dir": 44,
-        "score": 13
+        "score": 12.9
       }
     },
     "XRP": {
       "7": {
-        "cov80": 80,
-        "meanPit": 0.45,
+        "cov80": 82,
+        "meanPit": 0.44,
         "dir": 52,
-        "score": 14.9
+        "score": 19.1
       },
       "14": {
         "cov80": 87,
         "meanPit": 0.44,
         "dir": 51,
-        "score": 21.1
+        "score": 21.2
       },
       "30": {
         "cov80": 68,
@@ -751,21 +751,21 @@
     "SUI": {
       "7": {
         "cov80": 84,
-        "meanPit": 0.48,
+        "meanPit": 0.47,
         "dir": 54,
         "score": 15
       },
       "14": {
         "cov80": 74,
-        "meanPit": 0.51,
+        "meanPit": 0.5,
         "dir": 40,
-        "score": 12.5
+        "score": 12.4
       },
       "30": {
         "cov80": 73,
         "meanPit": 0.52,
-        "dir": 40,
-        "score": 20.3
+        "dir": 38,
+        "score": 21.9
       }
     },
     "AVAX": {
@@ -773,19 +773,19 @@
         "cov80": 86,
         "meanPit": 0.49,
         "dir": 38,
-        "score": 18.6
+        "score": 20.7
       },
       "14": {
         "cov80": 81,
         "meanPit": 0.48,
         "dir": 32,
-        "score": 11.4
+        "score": 11.5
       },
       "30": {
         "cov80": 67,
         "meanPit": 0.46,
-        "dir": 48,
-        "score": 41.1
+        "dir": 51,
+        "score": 41.2
       }
     },
     "LINK": {
@@ -799,52 +799,52 @@
         "cov80": 85,
         "meanPit": 0.49,
         "dir": 40,
-        "score": 18.9
+        "score": 18.8
       },
       "30": {
         "cov80": 75,
         "meanPit": 0.52,
         "dir": 48,
-        "score": 20.1
+        "score": 19.8
       }
     },
     "INJ": {
       "7": {
         "cov80": 80,
         "meanPit": 0.52,
-        "dir": 54,
-        "score": 9.5
+        "dir": 56,
+        "score": 11.6
       },
       "14": {
         "cov80": 81,
         "meanPit": 0.56,
         "dir": 55,
-        "score": 19.6
+        "score": 19.5
       },
       "30": {
         "cov80": 62,
         "meanPit": 0.62,
         "dir": 46,
-        "score": 73.5
+        "score": 73.6
       }
     },
     "OP": {
       "7": {
         "cov80": 74,
         "meanPit": 0.48,
-        "dir": 52,
-        "score": 19.1
+        "dir": 50,
+        "score": 22.7
       },
       "14": {
         "cov80": 83,
         "meanPit": 0.49,
-        "dir": 51,
-        "score": 11
+        "dir": 49,
+        "score": 13.3
       },
       "30": {
         "cov80": 79,
         "meanPit": 0.5,
-        "dir": 52,
+        "dir": 51,
         "score": 7.4
       }
     },
@@ -852,40 +852,40 @@
       "7": {
         "cov80": 70,
         "meanPit": 0.48,
-        "dir": 50,
-        "score": 27.2
+        "dir": 52,
+        "score": 29.4
       },
       "14": {
         "cov80": 72,
         "meanPit": 0.48,
         "dir": 47,
-        "score": 29.6
+        "score": 30
       },
       "30": {
         "cov80": 49,
         "meanPit": 0.51,
         "dir": 38,
-        "score": 70.2
+        "score": 71.6
       }
     },
     "DOGE": {
       "7": {
-        "cov80": 82,
+        "cov80": 80,
         "meanPit": 0.48,
-        "dir": 70,
-        "score": 20.6
+        "dir": 72,
+        "score": 18.9
       },
       "14": {
         "cov80": 85,
         "meanPit": 0.47,
         "dir": 64,
-        "score": 21.4
+        "score": 21.6
       },
       "30": {
         "cov80": 70,
         "meanPit": 0.47,
         "dir": 63,
-        "score": 34.6
+        "score": 34.7
       }
     },
     "TIA": {
@@ -893,44 +893,44 @@
         "cov80": 72,
         "meanPit": 0.48,
         "dir": 42,
-        "score": 25.4
+        "score": 23.4
       },
       "14": {
         "cov80": 74,
         "meanPit": 0.51,
         "dir": 40,
-        "score": 11.4
+        "score": 13.5
       },
       "30": {
-        "cov80": 65,
+        "cov80": 67,
         "meanPit": 0.51,
-        "dir": 29,
-        "score": 43.6
+        "dir": 30,
+        "score": 41.9
       }
     },
     "APT": {
       "7": {
         "cov80": 78,
         "meanPit": 0.5,
-        "dir": 50,
-        "score": 8.2
+        "dir": 46,
+        "score": 6.6
       },
       "14": {
         "cov80": 77,
         "meanPit": 0.47,
         "dir": 64,
-        "score": 15.3
+        "score": 15.4
       },
       "30": {
         "cov80": 62,
         "meanPit": 0.46,
         "dir": 48,
-        "score": 55.3
+        "score": 53.7
       }
     }
   },
   "routing": {
-    "generatedAt": "2026-08-15T07:45:22.687Z",
+    "generatedAt": "2026-08-15T09:30:18.692Z",
     "short": {
       "maxDays": 7,
       "strategy": "momentum"
@@ -941,7 +941,7 @@
     },
     "long": {
       "maxDays": 9999,
-      "strategy": "block_boot"
+      "strategy": "live_engine"
     }
   }
 }
