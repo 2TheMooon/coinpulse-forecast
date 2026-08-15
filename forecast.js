@@ -28,7 +28,7 @@
   // coverage toward the 80%/50% targets over time.
   var MODEL = {
     volPremium: 0.85, // global multiplier on estimated daily sigma
-    driftDamp: 0.25, // fraction of raw drift carried forward
+    driftDamp: 0.3, // fraction of raw drift carried forward
     tDof: 5, // Student-t degrees of freedom (fat tails)
     longHorizonBoost: 0.30, // term-structure vol boost, scales with horizon (~7% at 7d → 30% at 30d)
   };
@@ -333,10 +333,12 @@
     const sigma = Math.max(1e-6, (stats.simSigma || stats.sigmaDaily) * volScale * MODEL.volPremium * horizonFactor);
 
     // Damp the raw drift toward zero (recent trend rarely persists fully) and
-    // clamp it so the cone never runs away.
-    let mu = stats.muDaily * driftDamp;
-    mu = clamp(mu, -3 * sigma, 3 * sigma);
-    mu = clamp(mu, -0.02, 0.02);
+    // clamp it so the cone never runs away. muDaily is mean(log returns), i.e.
+    // ALREADY a log drift — so this is the per-step drift of log S directly and
+    // must NOT be Ito-corrected again (see `drift` below).
+    let muLog = stats.muDaily * driftDamp;
+    muLog = clamp(muLog, -3 * sigma, 3 * sigma);
+    muLog = clamp(muLog, -0.02, 0.02);
 
     const rng = mulberry32(seed);
     const tScale = tDof > 2 ? Math.sqrt((tDof - 2) / tDof) : 1;
@@ -419,7 +421,11 @@
     const terminalMax = new Float64Array(paths); // highest price reached on path
     const terminalMin = new Float64Array(paths); // lowest price reached on path
 
-    const drift = mu - kappa;
+    // muLog is the log drift, so it IS the per-step drift of log S. kappa stays
+    // meaningful as the arithmetic-vs-log gap: E[S_T] = s0*exp((muLog+kappa)*H),
+    // which is what `mu` now reports (and what selftest #2 checks).
+    const drift = muLog;
+    const mu = muLog + kappa;
 
     // Antithetic variates: simulate paths in pairs (+shock / -shock)
     for (let p = 0; p < paths; p += 2) {
@@ -603,7 +609,8 @@
     mu = clamp(mu, -3 * sigma, 3 * sigma);
     mu = clamp(mu, -0.02, 0.02);
     const s0 = stats.lastPrice;
-    const drift = (mu - 0.5 * sigma * sigma) * horizon;
+    // mu is already a log drift (mean of log returns) — no Ito term here.
+    const drift = mu * horizon;
     const vol = sigma * Math.sqrt(horizon);
     // P(S_T > level) under lognormal
     function probAbove(level) {
@@ -663,7 +670,9 @@
       const sig = Math.max(1e-6, est.sigma * volScale * MODEL.volPremium * horizonFactor);
       let mu = clamp(est.muDaily * driftDamp, -3 * sig, 3 * sig);
       mu = clamp(mu, -0.02, 0.02);
-      const drift = (mu - 0.5 * sig * sig) * horizon;
+      // quickMuSigma returns mean(log returns) — already a log drift, so the
+      // median of log S_T is mu*H. No 0.5*sig^2 here (see simulate()).
+      const drift = mu * horizon;
       const vol = sig * Math.sqrt(horizon);
       const s0 = closes[i];
       const realized = closes[i + horizon];
