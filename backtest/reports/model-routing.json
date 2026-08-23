@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T09:31:09.536Z",
+  "generatedAt": "2026-08-23T06:30:38.972Z",
   "short": {
     "maxDays": 7,
     "strategy": "block_boot"
@@ -10,6 +10,6 @@
   },
   "long": {
     "maxDays": 9999,
-    "strategy": "garch"
+    "strategy": "bootstrap_iid"
   }
 }
