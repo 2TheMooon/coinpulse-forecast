@@ -16,6 +16,8 @@ tune and improve the forecasting model.
 
 <!-- Daily calibration runs append below this line -->
 
+- 2026-08-24 auto-tune: volPremium 0.85→0.95, driftDamp 0.4→0.7 (calibration error 23.69→22.13, cov80→79.8%)
+
 - 2026-08-23 auto-tune: volPremium 0.85→0.85, driftDamp 0.7→0.4 (calibration error 27.97→27.23, cov80→78.9%)
 
 - 2026-08-22 auto-tune: volPremium 0.85→0.85, driftDamp 0.55→0.7 (calibration error 23.39→22.65, cov80→80%)
