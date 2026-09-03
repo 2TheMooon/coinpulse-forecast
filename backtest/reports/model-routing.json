@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-03T07:26:53.525Z",
+  "generatedAt": "2026-09-03T13:25:59.848Z",
   "short": {
     "maxDays": 7,
-    "strategy": "garch"
+    "strategy": "live_engine"
   },
   "mid": {
     "maxDays": 21,
