@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-27T14:37:42.930Z",
+  "generatedAt": "2026-09-28T17:30:24.042Z",
   "short": {
     "maxDays": 7,
     "strategy": "live_engine"
   },
   "mid": {
     "maxDays": 21,
-    "strategy": "live_engine"
+    "strategy": "bootstrap_iid"
   },
   "long": {
     "maxDays": 9999,
