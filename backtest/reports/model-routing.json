@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-11T15:29:16.384Z",
+  "generatedAt": "2026-10-12T18:48:38.561Z",
   "short": {
     "maxDays": 7,
-    "strategy": "gbm_normal"
+    "strategy": "live_engine"
   },
   "mid": {
     "maxDays": 21,
