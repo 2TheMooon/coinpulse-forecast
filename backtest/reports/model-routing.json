@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-22T14:26:04.986Z",
+  "generatedAt": "2026-10-23T14:08:32.036Z",
   "short": {
     "maxDays": 7,
-    "strategy": "gbm_t"
+    "strategy": "ensemble"
   },
   "mid": {
     "maxDays": 21,
-    "strategy": "ensemble"
+    "strategy": "ewma_t_zero"
   },
   "long": {
     "maxDays": 9999,
