@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-03T16:54:37.404Z",
+  "generatedAt": "2026-11-04T16:57:40.967Z",
   "short": {
     "maxDays": 7,
-    "strategy": "block_boot"
+    "strategy": "momentum"
   },
   "mid": {
     "maxDays": 21,
-    "strategy": "momentum"
+    "strategy": "block_boot"
   },
   "long": {
     "maxDays": 9999,
