@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T16:10:56.225Z",
+  "generatedAt": "2026-11-16T19:26:08.236Z",
   "short": {
     "maxDays": 7,
     "strategy": "garch"
@@ -10,6 +10,6 @@
   },
   "long": {
     "maxDays": 9999,
-    "strategy": "ewma_t_zero"
+    "strategy": "ensemble"
   }
 }
