@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-16T19:26:08.236Z",
+  "generatedAt": "2026-11-17T18:19:53.197Z",
   "short": {
     "maxDays": 7,
-    "strategy": "garch"
+    "strategy": "block_boot"
   },
   "mid": {
     "maxDays": 21,
@@ -10,6 +10,6 @@
   },
   "long": {
     "maxDays": 9999,
-    "strategy": "ensemble"
+    "strategy": "ewma_t_zero"
   }
 }
