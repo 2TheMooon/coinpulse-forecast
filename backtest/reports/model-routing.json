@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-11-22T16:59:12.938Z",
+  "generatedAt": "2026-11-23T21:01:32.292Z",
   "short": {
     "maxDays": 7,
-    "strategy": "gbm_t"
+    "strategy": "momentum"
   },
   "mid": {
     "maxDays": 21,
-    "strategy": "block_boot"
+    "strategy": "ewma_t_zero"
   },
   "long": {
     "maxDays": 9999,
-    "strategy": "live_engine"
+    "strategy": "ewma_t_zero"
   }
 }
